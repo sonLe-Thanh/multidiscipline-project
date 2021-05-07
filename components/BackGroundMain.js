@@ -2,13 +2,14 @@ import React from 'react';
 import {ImageBackground, StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {theme} from '../core/theme';
 
-const image_link = './assets/images/mainscreen_background.jpg';
+const image_link = '../assets/images/mainscreen_background.jpg';
 
 export default function mainBackground({ children }){
     return (
         <ImageBackground
-            source= {require(image_link)}
+            source= {require('../assets/images/mainscreen_background.jpg')}
             style = {styles.background}
+            style={styles.background}
         >
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 {children}

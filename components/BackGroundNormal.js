@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView} from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, View} from 'react-native';
 import {theme} from '../core/theme';
 
 export default function normalBackground({ children }){
