@@ -69,6 +69,7 @@ export default function LoginScreen({navigation}){
             <TextInput
                 label="Password"
                 returnKeyType="done"
+                description="Password must have at least 8 characters"
                 value= {password.value}
                 onChangeText={(text) => setPassword({ value: text, error: '' })}
                 error={!!password.error}
