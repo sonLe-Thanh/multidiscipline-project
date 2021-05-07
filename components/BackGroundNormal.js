@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, KeyboardAvoidingView, View} from 'react-native';
-import {theme} from '../core/theme';
 
 export default function normalBackground({ children }){
     return (
@@ -15,7 +14,7 @@ export default function normalBackground({ children }){
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: "#312525",
+        backgroundColor: "#586273",
     },
     container:{
         flex: 1,

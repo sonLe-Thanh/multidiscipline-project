@@ -33,6 +33,7 @@ export default function LoginScreen({navigation}){
     }
     return (
         <BackGroundNormal>
+            <Header>Register</Header>
             <TextInput
                 label="Name"
                 returnKeyType="next"
@@ -70,8 +71,8 @@ export default function LoginScreen({navigation}){
                 returnKeyType="done"
                 value= {password.value}
                 onChangeText={(text) => setPassword({ value: text, error: '' })}
-                error={!!email.error}
-                errorText={email.error}
+                error={!!password.error}
+                errorText={password.error}
                 secureTextEntry
             />
 
