@@ -4,9 +4,9 @@ import { StyleSheet, KeyboardAvoidingView, View} from 'react-native';
 export default function normalBackground({ children }){
     return (
         <View style = {styles.background}>
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <View style={styles.container} behavior="padding">
                 {children}
-            </KeyboardAvoidingView>
+            </View>
         </View>
     );
 }
