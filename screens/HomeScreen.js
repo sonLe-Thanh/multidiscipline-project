@@ -4,10 +4,11 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import {Text} from 'react-native-paper';
 import TextInput from '../components/TextInput';
+import {ScrollView} from 'react-native';
 
 export default function HomeScreen({navigation}){
     const userName = "LeThanh";
-    const activeKey = "aio_PoLs042IqMmgNO6SSKa9BaXA90vm";
+    const activeKey = "aio_ezkZ38iNn3kLo3gPe4adB0lweAIE";
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     var connectText = 'Connect to Adafruit server';
@@ -64,7 +65,7 @@ export default function HomeScreen({navigation}){
             })
         }).then((response)=>response.json())
         .then((json)=>{
-            console.log("Sent data to topic "+topic.value+" with value: "+sendData);
+            console.log("Sent data to topic "+topic.value+" with value: "+sendData.value);
             console.log("Result: ",json)
         })
         .catch((error)=>{
@@ -73,8 +74,9 @@ export default function HomeScreen({navigation}){
     }
 
     return (
+        
         <BackGroundNormal>
-            <Header>HOME SCREEN HERE</Header>
+            {/* <Header>HOME SCREEN HERE</Header> */}
 
             <Button mode="contained"
                 onPress={() => connectToAdafruit(userName, activeKey)}            
@@ -83,9 +85,9 @@ export default function HomeScreen({navigation}){
             </Button>
 
             <TextInput
-                label="ReceiveTopicName"
+                label="Receive Topic Name 1" 
                 returnKeyType="done"
-                value={receiveTopic}
+                value={receiveTopic.value}
                 onChangeText = {(text)=> setReceiveTopic({value: text, error: ""})}
                 error={!!receiveTopic.error}
                 errorText={receiveTopic.error}
@@ -97,18 +99,19 @@ export default function HomeScreen({navigation}){
             >
                 Get latest data from topic
             </Button>
+            
 
             <TextInput
                 label="SendTopicName"
                 returnKeyType="done"
-                value={sendTopic}
+                value={sendTopic.value}
                 onChangeText = {(text)=> setSendTopic({value:text})}
             />
 
             <TextInput
                 label="SendData"
                 returnKeyType="done"
-                value={sendData}
+                value={sendData.value}
                 onChangeText = {(text)=> setSendData({value:text})}
             />
 
