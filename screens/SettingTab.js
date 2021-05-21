@@ -1,15 +1,67 @@
-import React from 'react';
+import React, {useState} from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { Alert, TouchableWithoutFeedback, Keyboard  } from 'react-native';
+import TextInput from '../components/TextInput';
+import {theme} from '../core/theme';
+import {emailValidator} from '../util/emailValidator';
+
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export default function SettingTab({navigation}){
+    const [email, setEmail] = useState({value: '', error: ''});
+    const [password, setPassword] = useState({value: '', error: ''});
+    const [name, setName] = useState({value: '', error: ''});
+    const [phone, setPhone] = useState({value: '', error: ''});
+
+    const onSavePressed = () =>{
+        const emailError = emailValidator(email.value);
+        if (emailError) {
+            setEmail({...email, error:emailError});
+            //Send data to backend here
+            return
+        }
+    }
+
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal>
-            <Header>SETTING SCREEN HERE</Header>
+            <TextInput
+                label="Phone"
+                returnKeyType="next"
+                value= {phone.value}
+                onChangeText={(text) => setPhone({ value: text, error: '' })}
+                error={!!phone.error}
+                errorText={phone.error}
+                keyboardType="numeric"
+            />
+
+            <TextInput
+                label="Email"
+                returnKeyType="next"
+                value= {email.value}
+                onChangeText={(text) => setEmail({ value: text, error: '' })}
+                error={!!email.error}
+                errorText={email.error}
+                autoCapitalize="none"
+                autoCompleteType="email"
+                textContentType="emailAddress"
+                keyboardType="email-address"
+            />
+
+            <Button mode="contained" 
+                onPress={onSavePressed}
+            > 
+                Save
+            </Button>
+
+            <Button mode="contained" 
+                onPress={() => {}}
+            > 
+                Change Password
+            </Button>
+
             <Button mode="contained" 
                 onPress={() => {
                     Alert.alert("Logging out", "Are you sure you want to log out?", [
