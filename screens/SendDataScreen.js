@@ -7,7 +7,7 @@ import TextInput from '../components/TextInput';
 import {Alert} from 'react-native';
 
 export default function SendDataScreen({navigation}){
-    const activeKey = "aio_hYiG274T6gMuayHnJAV1cOwMJUkt";
+    const activeKey = "aio_QaIJ609OLVSpcnSKIgRNi25QJLId";
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const [sendTopic1, setSendTopic1] = useState({value: ''});
