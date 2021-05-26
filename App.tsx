@@ -9,6 +9,7 @@ import {
   HomeScreen,
 } from './screens';
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen.js";
+import ChangePasswordScreen from "./screens/ChangePasswordScreen.js";
  
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
           <Stack.Screen name="RegisterScreen" component ={RegisterScreen}/>
           <Stack.Screen name="HomeScreen" component ={HomeScreen}/>
           <Stack.Screen name="ForgotPasswordScreen" component ={ForgotPasswordScreen}/>
+          <Stack.Screen name="ChangePasswordScreen" component ={ChangePasswordScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

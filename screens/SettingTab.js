@@ -25,10 +25,6 @@ export default function SettingTab({navigation}){
         }
     }
 
-    const onChangePasswordPressed = () => {
-        
-    }
-
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal>
@@ -61,9 +57,7 @@ export default function SettingTab({navigation}){
                 Save
             </Button>
 
-            <Button mode="contained" 
-                onPress={onChangePasswordPressed}
-            > 
+            <Button mode="contained" onPress={()=>navigation.replace('ChangePasswordScreen')}> 
                 Change Password
             </Button>
 
