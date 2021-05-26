@@ -13,9 +13,9 @@ const Tab = createBottomTabNavigator();
 export default function HomeScreen() {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="HomeTab" component={HomeTab} />
-            <Tab.Screen name="NotificationTab" component={NotificationTab} />
-            <Tab.Screen name="SettingTab" component={SettingTab} />
+            <Tab.Screen name="Home" component={HomeTab} />
+            <Tab.Screen name="Notification" component={NotificationTab} />
+            <Tab.Screen name="Setting" component={SettingTab} />
         </Tab.Navigator>
     );
 }

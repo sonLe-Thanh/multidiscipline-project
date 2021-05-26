@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableWithoutFeedback, Keyboard  } from 'react-native';
+import { Alert, TouchableWithoutFeedback, Keyboard, FlatList  } from 'react-native';
 import TextInput from '../components/TextInput';
 import {theme} from '../core/theme';
 import {emailValidator} from '../util/emailValidator';
+import { onChange } from 'react-native-reanimated';
 
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -22,6 +23,10 @@ export default function SettingTab({navigation}){
             //Send data to backend here
             return
         }
+    }
+
+    const onChangePasswordPressed = () => {
+        
     }
 
     return (
@@ -57,7 +62,7 @@ export default function SettingTab({navigation}){
             </Button>
 
             <Button mode="contained" 
-                onPress={() => {}}
+                onPress={onChangePasswordPressed}
             > 
                 Change Password
             </Button>
