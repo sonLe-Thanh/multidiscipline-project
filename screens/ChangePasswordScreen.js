@@ -55,7 +55,7 @@ export default function ChangePasswordScreen({navigation}){
                 label="Confirm new password"
                 returnKeyType="done"
                 value= {newPass1.value}
-                onChangeText={(text) => setNewPass0({ value: text, error: '' })}
+                onChangeText={(text) => setNewPass1({ value: text, error: '' })}
                 error={!!newPass1.error}
                 errorText={newPass1.error}
                 secureTextEntry

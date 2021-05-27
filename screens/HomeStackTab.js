@@ -7,18 +7,17 @@ import { Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity, Text  } fr
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DoorsTab from "./DoorsTab.js";
-import SettingScreen from "./SettingScreen.js";
-import ChangePasswordScreen from './ChangePasswordScreen';
+import HomeMainScreen from "./HomeMainScreen.js";
 
-const SettingStack = createStackNavigator();
+const HomeStack = createStackNavigator();
 
-export default function SettingTab({navigation}){
+export default function HomeStackTab({navigation}){
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
-        <SettingStack.Navigator>
-            <SettingStack.Screen name="Setting" component={SettingScreen} options={{headerShown: false}}/>             
-            <SettingStack.Screen name="ChangePassword" component={ChangePasswordScreen} options={{headerShown: false}}/>
-        </SettingStack.Navigator>
+        <HomeStack.Navigator>
+            <HomeStack.Screen name="Home" component={HomeMainScreen} options={{headerShown: false}}/>             
+            <HomeStack.Screen name="Doors" component={DoorsTab} options={{headerShown: false}}/>
+        </HomeStack.Navigator>
         // </TouchableWithoutFeedback>
     );    
 }
