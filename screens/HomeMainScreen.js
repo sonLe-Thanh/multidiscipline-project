@@ -2,7 +2,7 @@ import React from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableOpacity, Keyboard, Text, StyleSheet } from 'react-native';
+import { Alert, TouchableOpacity, Keyboard, Text, StyleSheet, ImageBackground, Image } from 'react-native';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -14,35 +14,40 @@ export default function HomeMainScreen({navigation}){
                 style={styles.sensorsButton} 
                 onPress = {() => {navigation.navigate("Sensors")}}
             >
-                <Text>Sensor</Text>
+                {/* <Text>Sensor</Text> */}
+                <Image source={require("../assets/images/favicon.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.doorsButton} 
                 onPress = {() => {navigation.navigate("Doors")}}
             >
-                <Text>Doors</Text>
+                {/* <Text>Doors</Text> */}
+                <Image source={require("../assets/images/favicon.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.historyButton} 
                 onPress = {() => {navigation.navigate("History")}}
             >
-                <Text>History</Text>
+                {/* <Text>History</Text> */}
+                <Image source={require("../assets/images/favicon.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.devicesButton} 
                 onPress = {() => {navigation.navigate("Devices")}}
             >
-                <Text>Devices</Text>
+                {/* <Text>Devices</Text> */}
+                <Image source={require("../assets/images/favicon.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.addDevicesButton} 
                 onPress = {() => {navigation.navigate("AddDevice")}}
             >
-                <Text>Add device</Text>
+                {/* <Text>Add device</Text> */}
+                <Image source={require("../assets/images/favicon.png")}/>
             </TouchableOpacity>
         </BackGroundNormal>
         // </TouchableWithoutFeedback>
@@ -51,7 +56,7 @@ export default function HomeMainScreen({navigation}){
 
 const styles = StyleSheet.create({
     sensorsButton:{
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         marginTop: 20,
         width: 80,
         height: 80,
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
         top: 10,
     },
     doorsButton:{
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         marginTop: 20,
         width: 80,
         height: 80,
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
         top: 10,
     },
     historyButton:{
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         marginTop: 20,
         width: 80,
         height: 80,
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
         top: 10,
     },
     devicesButton:{
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         marginTop: 20,
         width: 80,
         height: 80,
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
         top: 150,
     },
     addDevicesButton:{
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         width: 80,
         height: 80,
         justifyContent: "center",
