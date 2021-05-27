@@ -1,13 +1,15 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView, View} from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, View, TouchableWithoutFeedback, Keyboard} from 'react-native';
 
 export default function normalBackground({ children }){
     return (
-        <View style = {styles.background}>
-            <View style={styles.container} behavior="padding">
-                {children}
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <View style = {styles.background}>
+                <KeyboardAvoidingView style={styles.container} behavior="padding">
+                    {children}
+                </KeyboardAvoidingView>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 

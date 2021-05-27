@@ -1,20 +1,23 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {ImageBackground, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard} from 'react-native';
+// import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {theme} from '../core/theme';
 
 const image_link = '../assets/images/mainscreen_background.jpg';
 
 export default function mainBackground({ children }){
     return (
-        <ImageBackground
-            source= {require('../assets/images/mainscreen_background.jpg')}
-            style = {styles.background}
-            style={styles.background}
-        >
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
-                {children}
-            </KeyboardAvoidingView>
-        </ImageBackground>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <ImageBackground
+                source= {require('../assets/images/mainscreen_background.jpg')}
+                style = {styles.background}
+                style={styles.background}
+            >
+                <KeyboardAvoidingView style={styles.container} behavior="padding">
+                    {children}
+                </KeyboardAvoidingView>
+            </ImageBackground>
+        </TouchableWithoutFeedback>
     );
 }
 

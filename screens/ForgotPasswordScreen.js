@@ -11,37 +11,32 @@ import {emailValidator} from '../util/emailValidator';
 import {passwordValidator} from '../util/passwordValidator';
 import {nameValidator} from '../util/nameValidator';
 
-export default function RegisterScreen({navigation}){
+export default function ForgotPasswordScreen({navigation}){
     const [email, setEmail] = useState({value: '', error: ''});
     const [password, setPassword] = useState({value: '', error: ''});
     const [name, setName] = useState({value: '', error: ''});
     const [phone, setPhone] = useState({value: '', error: ''});
 
-    const onRegisterPressed = () =>{
+    const onRetrievePressed = () =>{
         const emailError = emailValidator(email.value);
-        const passwordError = passwordValidator(password.value);
-        const nameError = nameValidator(name.value);
-        if (emailError || passwordError || nameError) {
+        if (emailError) {
             setEmail({...email, error:emailError});
-            setPassword({...password, error : passwordError});
-            setName({...name, error: nameError});
-
             //Send data to backend here
-            return
+            return;
         }
         navigation.navigate('LoginScreen');
     }
     return (
         <BackGroundNormal>
-            <Header>Register</Header>
-            <TextInput
+            <Header>Retrieve Password</Header>
+            {/* <TextInput
                 label="Name"
                 returnKeyType="next"
                 value= {name.value}
                 onChangeText={(text) => setName({ value: text, error: '' })}
                 error={!!name.error}
                 errorText={name.error}
-            />
+            /> */}
 
             <TextInput
                 label="Email"
@@ -56,33 +51,12 @@ export default function RegisterScreen({navigation}){
                 keyboardType="email-address"
             />
 
-            <TextInput
-                label="Phone"
-                returnKeyType="next"
-                value= {phone.value}
-                onChangeText={(text) => setPhone({ value: text, error: '' })}
-                error={!!phone.error}
-                errorText={phone.error}
-                keyboardType="numeric"
-            />
-
-            <TextInput
-                label="Password"
-                returnKeyType="done"
-                description="Password must have at least 8 characters"
-                value= {password.value}
-                onChangeText={(text) => setPassword({ value: text, error: '' })}
-                error={!!password.error}
-                errorText={password.error}
-                secureTextEntry
-            />
-
-            <Button mode="contained" onPress={onRegisterPressed}> 
-                Register
+            <Button mode="contained" onPress={onRetrievePressed}> 
+                Retrieve Password
             </Button>
 
             <View style={styles.row}>
-                <Text>Already have an account?</Text>
+                <Text>Already have an account? </Text>
                 <TouchableOpacity onPress={()=>navigation.replace('LoginScreen')}>
                     <Text style={styles.link}>Login</Text>
                 </TouchableOpacity>

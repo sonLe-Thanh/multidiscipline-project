@@ -56,9 +56,9 @@ export default function LoginScreen({navigation}){
             <View style={styles.forgotPassword}>
                 <TouchableOpacity
                     // Should navigate to reset password page here
-                    onPress={()=>{}}
+                    onPress={()=>navigation.replace('ForgotPasswordScreen')}
                 >
-                    <Text style={styles.forgot}>Forgot password?</Text>
+                    <Text style={styles.forgot} >Forgot password?</Text>
                 </TouchableOpacity>
             </View>
 
@@ -67,9 +67,9 @@ export default function LoginScreen({navigation}){
             </Button>
 
             <View style={styles.row}>
-                <Text style={styles.description}>Don't have any account?</Text>
+                <Text>Don't have any account?</Text>
                 <TouchableOpacity onPress={()=>navigation.replace('RegisterScreen')}>
-                    <Text style={styles.link}> Register</Text>
+                    <Text style={styles.link}>Register</Text>
                 </TouchableOpacity>
             </View>
         </BackGroundMain>
@@ -93,9 +93,6 @@ const styles = StyleSheet.create({
     },
     link:{
         fontWeight: 'bold',
-        color: "#2e2e2e",
+        color: theme.colors.primary,
     },
-    description:{
-        color: '#020203',
-    }
 });

@@ -10,7 +10,9 @@ import {
   ReceiveDataScreen,
   SendDataScreen,
 } from './screens';
-
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen.js";
+// import ChangePasswordScreen from "./screens/ChangePasswordScreen.js";
+ 
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
           <Stack.Screen name="HomeScreen" component ={HomeScreen}/>
           <Stack.Screen name="ReceiveDataScreen" component={ReceiveDataScreen}/>
           <Stack.Screen name="SendDataScreen" component={SendDataScreen}/>
+          <Stack.Screen name="ForgotPasswordScreen" component ={ForgotPasswordScreen}/>
+          {/* <Stack.Screen name="ChangePasswordScreen" component ={ChangePasswordScreen}/> */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
