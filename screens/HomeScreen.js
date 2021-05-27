@@ -5,11 +5,10 @@ import Button from '../components/Button';
 import {Text} from 'react-native-paper';
 import TextInput from '../components/TextInput';
 import {ScrollView} from 'react-native';
-import Modal from 'react-native-modal'
 
 export default function HomeScreen({navigation}){
     const userName = "LeThanh";
-    const activeKey = "aio_hYiG274T6gMuayHnJAV1cOwMJUkt";
+    const activeKey = "aio_oFng13i2Ap1pb4dpN86jgoULrJok";
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const [connectText, setConnectText] = useState('Connect to Adafruit server');

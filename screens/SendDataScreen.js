@@ -5,9 +5,10 @@ import Button from '../components/Button';
 import {Text} from 'react-native-paper';
 import TextInput from '../components/TextInput';
 import {Alert} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function SendDataScreen({navigation}){
-    const activeKey = "aio_QaIJ609OLVSpcnSKIgRNi25QJLId";
+    const activeKey = "aio_oFng13i2Ap1pb4dpN86jgoULrJok";
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const [sendTopic1, setSendTopic1] = useState({value: ''});
@@ -40,8 +41,9 @@ export default function SendDataScreen({navigation}){
     }
 
     return (
-        
+
         <BackGroundNormal>
+            <ScrollView style={{width: '100%'}}>
             <Header>Send data to feeds</Header>
             
             <TextInput
@@ -101,7 +103,7 @@ export default function SendDataScreen({navigation}){
             > 
                 Log out
             </Button>
-
+            </ScrollView>
         </BackGroundNormal>
     );    
 }
