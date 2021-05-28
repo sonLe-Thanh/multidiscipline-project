@@ -49,6 +49,8 @@ export default function HomeMainScreen({navigation}){
                 {/* <Text>Add device</Text> */}
                 <Image source={require("../assets/images/favicon.png")}/>
             </TouchableOpacity>
+
+            <Text></Text>
         </BackGroundNormal>
         // </TouchableWithoutFeedback>
     );    
