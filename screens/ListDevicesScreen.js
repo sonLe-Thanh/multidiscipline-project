@@ -10,6 +10,8 @@ import Modal from 'react-native-modal'
 export default function ListDevicesScreen({ navigation }) {
     return (
         <BackGroundNormal>
+            <ScrollView>
+            </ScrollView>
         </BackGroundNormal>
     )
 }
