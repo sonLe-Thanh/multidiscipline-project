@@ -8,8 +8,9 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 
 export default function SensorsScreen({navigation}){
-    const activeKey = "aio_pukx68auKHJQ4lcYiWUy8pTKd5F0";
+    const activeKey = "aio_oVFK11TKG8KzLv9s5PtWBeCukuah";
     const apiHeader = "https://io.adafruit.com/api/v2/";
+    const dht11Topic = "CSE_BBC/feeds/bk-iot-temp-humid";
 
     const [temparature, setTemparature] = useState('--°C');
     const [humidity, setHumidity] = useState("--%");
@@ -34,7 +35,7 @@ export default function SensorsScreen({navigation}){
             console.error(error)
         })
     };
-    receivedDataFromFeed("CSE_BBC/feeds/bk-iot-temp-humid","last");
+    receivedDataFromFeed(dht11Topic,"last");
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal>

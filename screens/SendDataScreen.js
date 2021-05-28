@@ -8,7 +8,7 @@ import {Alert} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default function SendDataScreen({navigation}){
-    const activeKey = "aio_oFng13i2Ap1pb4dpN86jgoULrJok";
+    const activeKey = "aio_oVFK11TKG8KzLv9s5PtWBeCukuah";
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const [sendTopic1, setSendTopic1] = useState({value: ''});
