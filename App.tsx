@@ -9,6 +9,7 @@ import {
   HomeScreen,
   ReceiveDataScreen,
   SendDataScreen,
+  ListDevicesScreen,
 } from './screens';
 
 const Stack = createStackNavigator();
@@ -19,13 +20,14 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="LoginScreen"
-          screenOptions={{headerShown: false,}}
+          screenOptions={{ headerShown: false, }}
         >
-          <Stack.Screen name="LoginScreen" component ={LoginScreen}/>
-          <Stack.Screen name="RegisterScreen" component ={RegisterScreen}/>
-          <Stack.Screen name="HomeScreen" component ={HomeScreen}/>
-          <Stack.Screen name="ReceiveDataScreen" component={ReceiveDataScreen}/>
-          <Stack.Screen name="SendDataScreen" component={SendDataScreen}/>
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="ReceiveDataScreen" component={ReceiveDataScreen} />
+          <Stack.Screen name="SendDataScreen" component={SendDataScreen} />
+          <Stack.Screen name="ListDevicesScreen" component={ListDevicesScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
