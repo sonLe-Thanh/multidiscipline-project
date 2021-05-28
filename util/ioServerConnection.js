@@ -1,4 +1,4 @@
-const activeKey = "aio_KXfp47zegx3CthMAEj6pB0ZeKoEm";
+const activeKey = "aio_pukx68auKHJQ4lcYiWUy8pTKd5F012";
 const apiHeader = "https://io.adafruit.com/api/v2/";
 //Specificly send data to magnetic switch only
 function sendDataToFeed(topic, deviceID, deviceName, sendData, unit) {
@@ -25,7 +25,7 @@ function sendDataToFeed(topic, deviceID, deviceName, sendData, unit) {
     })
 }
 
-function receivedDataFromFeed(topic, mode) {
+async function receivedDataFromFeed(topic, mode) {
     url = apiHeader+topic+"/data/"+mode;
     var data, unit;
     fetch(url, {
@@ -35,12 +35,15 @@ function receivedDataFromFeed(topic, mode) {
         }
     }).then((response)=>response.json())
     .then((json)=>{
-        console.log("Lasted info on topic "+topic+":",json);
-        console.log(json.value);
-        data = json.data;
-        unit = json.unit;
+        // console.log("Lasted info on topic "+topic+":",json);
+        // console.log(json.value);
+        var receivedObj = JSON.parse(json.value)
+        // console.log(receivedObj)
+        data = receivedObj.data;
+        unit = receivedObj.unit;
+        console.log("Extracted data: " +data + unit)
     })
-    return [data, unit];
+    return await [data, unit];
 }
 
 export {sendDataToFeed, receivedDataFromFeed}
