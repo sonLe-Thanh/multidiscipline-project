@@ -9,6 +9,7 @@ import {
   HomeScreen,
   ReceiveDataScreen,
   SendDataScreen,
+  ShowScreen
 } from './screens';
 
 const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ export default function App() {
           <Stack.Screen name="LoginScreen" component ={LoginScreen}/>
           <Stack.Screen name="RegisterScreen" component ={RegisterScreen}/>
           <Stack.Screen name="HomeScreen" component ={HomeScreen}/>
+          <Stack.Screen name="ShowScreen" component ={ShowScreen}/>
           <Stack.Screen name="ReceiveDataScreen" component={ReceiveDataScreen}/>
           <Stack.Screen name="SendDataScreen" component={SendDataScreen}/>
         </Stack.Navigator>

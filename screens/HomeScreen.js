@@ -9,14 +9,14 @@ import Modal from 'react-native-modal'
 
 export default function HomeScreen({navigation}){
     const userName = "LeThanh";
-    const activeKey = "aio_hYiG274T6gMuayHnJAV1cOwMJUkt";
+    const activeKey = "aio_oFng13i2Ap1pb4dpN86jgoULrJok";
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const [connectText, setConnectText] = useState('Connect to Adafruit server');
     
     const connectToAdafruit = (username, key) =>{
         url = apiHeader+username+"/feeds?x-aio-key="+key;
-        //console.log(url);
+        console.log(url);
         return fetch(url, {
             //method: 'POST'
         }).then((response) => response.json())
@@ -63,6 +63,13 @@ export default function HomeScreen({navigation}){
                 })}}
             > 
                 Log out
+            </Button>
+
+            <Button
+                mode="contained"
+                onPress={()=>{navigation.replace('ShowScreen')}}
+            >
+                Show History
             </Button>
 
         </BackGroundNormal>
