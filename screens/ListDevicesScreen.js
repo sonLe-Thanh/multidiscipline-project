@@ -3,9 +3,14 @@ import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import TextInput from '../components/TextInput';
 import { ScrollView, Button } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Modal from 'react-native-modal';
 import { Divider } from 'react-native-elements';
+
+import { MaterialIcons } from '@expo/vector-icons';
+
+
+// Device properties: id, topic_name, aio_key, type
 
 function RegisterDevice(event) {
 
@@ -27,13 +32,19 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginTop: 5
     },
-    div: {
+    divider: {
         backgroundColor: 'blue',
-        height: 5
+        height: 10
     }
 })
 
+const sampleDevices = [
+    { id: 1, topic_name: "Outdoor", aio_key: "7c046af32ff0", type: "input", name: "Temperature Sensor" },
+    { id: 2, topic_name: "Outdoor", aio_key: "6fb5e156d18f", type: "output", name: "Magnetic Switch" },
+]
+
 export default function ListDevicesScreen({ navigation }) {
+    console.log(sampleDevices)
     return (
         <BackGroundNormal>
 
@@ -53,11 +64,19 @@ export default function ListDevicesScreen({ navigation }) {
                     <Button title="Remove marked" color="red" />
                 </View>
             </View>
-            <Divider style={styles.div} />;
+            <Divider style={styles.divider} />
             <ScrollView>
 
+                <View>
+                    <FlatList
+                        data={sampleDevices}
+                        keyExtractor={({ id }) => id.toString()}
+                        renderItem={({ item }) => <Text>{item.name}</Text>}
+                    />
+                </View>
+
             </ScrollView>
-            <Divider style={styles.div} />;
+            <Divider style={styles.divider} />
 
         </BackGroundNormal>
     )
