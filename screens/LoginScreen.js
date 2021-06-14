@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {TouchableOpacity, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import BackGroundMain from '../components/BackGroundMain';
@@ -10,9 +10,29 @@ import {theme} from '../core/theme';
 import {emailValidator} from '../util/emailValidator';
 import {passwordValidator} from '../util/passwordValidator';
 
+var uid = 0;
+
+function getUid() {
+    return uid;
+}
+
 export default function LoginScreen({navigation}){
+    const [user, setUser] = useState([]);
     const [email, setEmail] = useState({value: '', error: ''});
     const [password, setPassword] = useState({value: '', error: ''});
+
+    useEffect(() => {
+        fetch("http://192.168.56.1:80/api/users/", {
+            method: "GET"
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            setUser(data);
+        })
+        .catch(error => { console.log("error", error) });
+    }, []);
+
+    // console.log(data);
 
     const onLoginPressed = () =>{
         const emailError = emailValidator(email.value);
@@ -22,6 +42,16 @@ export default function LoginScreen({navigation}){
             setPassword({...password, error:passwordError});
             return
         }
+        let able = 0;
+        for (let i = 0; i < user.length; ++i) {
+            if (email.value == user[i].email) {
+                // check password here
+                global.uid = user[i].id;
+                able = 1;
+                break;
+            }
+        }
+        if (!able) return;
         navigation.reset({
             index: 0,
             routes: [{name: 'HomeScreen'}],

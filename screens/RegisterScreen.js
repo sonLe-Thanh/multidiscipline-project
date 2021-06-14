@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {TouchableOpacity, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import BackGroundNormal from '../components/BackGroundNormal';
@@ -16,6 +16,29 @@ export default function RegisterScreen({navigation}){
     const [password, setPassword] = useState({value: '', error: ''});
     const [name, setName] = useState({value: '', error: ''});
     const [phone, setPhone] = useState({value: '', error: ''});
+    const [user, setUser] = useState([]);
+
+    // useEffect(() => {
+    //     fetch("http://192.168.56.1:80/api/users/", {
+    //         method: "GET"
+    //     })
+    //     .then((resp) => resp.json())
+    //     .then((data) => {
+    //         setUser(data);
+    //     })
+    //     .catch(error => { console.log("error", error) });
+    // }, []);
+
+    // useEffect(() => {
+    //     fetch("http://192.168.56.1:80/api/users/", {
+    //         method: "GET"
+    //     })
+    //     .then((resp) => resp.json())
+    //     .then((data) => {
+    //         setUser(data);
+    //     })
+    //     .catch(error => { console.log("error", error) });
+    // }, []);
 
     const onRegisterPressed = () =>{
         const emailError = emailValidator(email.value);
@@ -29,8 +52,26 @@ export default function RegisterScreen({navigation}){
             //Send data to backend here
             return
         }
-        navigation.navigate('LoginScreen');
+
+        fetch("http://192.168.56.1:80/api/users/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({
+                password: password.value,
+                name: name.value,
+                email: email.value,
+                phone_number: phone.value
+            })
+        })
+        .then((resp) => resp.json())
+        .then(() => {
+            navigation.navigate('LoginScreen');
+        })
+        .catch(error => { console.log("error", error) });
     }
+    
     return (
         <BackGroundNormal>
             <Header>Register</Header>

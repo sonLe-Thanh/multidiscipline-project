@@ -23,6 +23,21 @@ export default function SettingScreen({navigation}){
             //Send data to backend here
             return
         }
+
+        // fetch("http://192.168.56.1:80/api/users/", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body:JSON.stringify({
+        //         password: password.value,
+        //         name: name.value,
+        //         email: email.value,
+        //         phone_number: phone.value
+        //     })
+        // })
+        // .then((resp) => resp.json())
+        // .catch(error => { console.log("error", error) });
     }
 
     return (

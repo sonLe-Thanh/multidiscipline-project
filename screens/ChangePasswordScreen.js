@@ -10,6 +10,7 @@ import {theme} from '../core/theme';
 import {emailValidator} from '../util/emailValidator';
 import {passwordValidator} from '../util/passwordValidator';
 import {nameValidator} from '../util/nameValidator';
+import {getUid, LoginScreen} from './LoginScreen';
 
 export default function ChangePasswordScreen({navigation}){
     const [currPass, setCurrPass] = useState({value: '', error: ''});
@@ -24,8 +25,26 @@ export default function ChangePasswordScreen({navigation}){
         ])
     }
 
+    const getUid = () => {
+
+    }
+
     const validatePassword = () => {
-        navigation.navigate('LoginScreen');
+        console.log(global.uid);
+        fetch(`http://192.168.56.1:80/api/users/${global.uid}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({
+                password: newPass0.value,
+            })
+        })
+        .then((resp) => resp.json())
+        .then(() => {
+            navigation.navigate('LoginScreen');
+        })
+        .catch(error => { console.log("error", error) });
     }
 
     return (
