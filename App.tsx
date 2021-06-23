@@ -9,7 +9,8 @@ import {
   HomeScreen,
   ReceiveDataScreen,
   SendDataScreen,
-  ShowScreen
+  ShowScreen,
+  ListDevicesScreen,
 } from './screens';
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen.js";
 // import ChangePasswordScreen from "./screens/ChangePasswordScreen.js";
@@ -22,7 +23,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="LoginScreen"
-          screenOptions={{headerShown: false,}}
+          screenOptions={{ headerShown: false, }}
         >
           <Stack.Screen name="LoginScreen" component ={LoginScreen}/>
           <Stack.Screen name="RegisterScreen" component ={RegisterScreen}/>
@@ -32,6 +33,7 @@ export default function App() {
           <Stack.Screen name="SendDataScreen" component={SendDataScreen}/>
           <Stack.Screen name="ForgotPasswordScreen" component ={ForgotPasswordScreen}/>
           {/* <Stack.Screen name="ChangePasswordScreen" component ={ChangePasswordScreen}/> */}
+          <Stack.Screen name="ListDevicesScreen" component={ListDevicesScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
