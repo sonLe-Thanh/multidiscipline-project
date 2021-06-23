@@ -11,7 +11,7 @@ import { ScrollView } from 'react-native';
 
 export default function DoorScreen({navigation}){
     // const activeKey = "aio_LIDa314NtVpctuI56N4bNL6zWj r x";
-    const activeKey = "aio_oVFK11TKG8KzLv9s5PtWBeCuku a h";
+    const activeKey = "aio_atdS67wAR8mAG3s0MfgeS6ydx7fi";
     const apiHeader = "https://io.adafruit.com/api/v2/";
     const switchTopic = "CSE_BBC/feeds/bk-iot-magnetic";
     // const switchTopic = "LeThanh/feeds/magnetic-switch";
@@ -27,7 +27,7 @@ export default function DoorScreen({navigation}){
             }
         }).then(response =>response.json())
         .then((json)=>{
-            console.log(json)
+            // console.log(json)
             var receivedObj = JSON.parse(json.value)
             var receivedData = receivedObj.data;
             console.log(receivedData);
@@ -39,7 +39,7 @@ export default function DoorScreen({navigation}){
                 setDoorStatus("Door opened!");
                 setDoorAction("Close the door");
             }
-            // setTimeout(receivedDataFromFeed, 40000);
+            // setTimeout(receivedDataFromFeed, 40000,switchTopic,"last");
         })
         .catch((error)=>{
             console.error(error)

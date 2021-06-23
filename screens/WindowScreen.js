@@ -10,24 +10,26 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { ScrollView } from 'react-native';
 
 export default function WindowScreen({navigation}){
-    const activeKey = "aio_LIDa314NtVpctuI56N4bNL6zWj r x";
+    const activeKey = "aio_LIDa314NtVpctuI56N4bNL6zWjrx";
     // const activeKey = "aio_oVFK11TKG8KzLv9s5PtWBeCuku a h";
     const apiHeader = "https://io.adafruit.com/api/v2/";
     // const switchTopic = "CSE_BBC/feeds/bk-iot-magnetic";
     const switchTopic = "LeThanh/feeds/magnetic-switch";
     const [WindowStatus, setWindowStatus] = useState("Fetching");
     const [WindowAction, setWindowAction] = useState("Fetching")
+    // var count =1 ;
 
-    function receivedDataFromFeed(topic, mode) {
+
+    async function receivedDataFromFeed(topic, mode) {
         var url = apiHeader+topic+"/data/"+mode;
-        fetch(url, {
+        return fetch(url, {
             method: "GET",
             headers: {
                 "X-AIO-Key": activeKey,
             }
         }).then(response =>response.json())
         .then((json)=>{
-            console.log(json)
+            // console.log(json)
             var receivedObj = JSON.parse(json.value)
             var receivedData = receivedObj.data;
             console.log(receivedData);
@@ -39,7 +41,9 @@ export default function WindowScreen({navigation}){
                 setWindowStatus("Window opened!");
                 setWindowAction("Close the window");
             }
-            // setTimeout(receivedDataFromFeed, 40000);
+            // setTimeout(receivedDataFromFeed, 40000,switchTopic,"last");
+            // count ++;
+            // console.log("Count",count);
         })
         .catch((error)=>{
             console.error(error)
@@ -74,7 +78,7 @@ export default function WindowScreen({navigation}){
             })
         }).then((response)=>response.json())
         .then((json)=>{
-            console.log("Sent data to topic "+topic.value+" with value: "+sendData.value);
+            console.log("Sent data to topic "+topic.value+" with value: "+sendData);
             console.log("Result: ",json)
             var receivedObj = JSON.parse(json.value)
             var receivedData = receivedObj.data;
@@ -91,7 +95,11 @@ export default function WindowScreen({navigation}){
             console.error(error);
         })
     }
-    receivedDataFromFeed(switchTopic, "last");
+    function getData(){
+        receivedDataFromFeed(switchTopic, "last");
+        // setTimeout(receivedDataFromFeed, 40000,switchTopic,"last");
+    }
+    getData();
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal>
