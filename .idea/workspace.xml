@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6ea1ef36-9995-4d96-8320-7976b3b1d0ec" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/screens/ShowScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hướng dẫn xây dựng Server và gửi nhận dữ liệu với adafruit.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/ReceiveDataScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ReceiveDataScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/SendDataScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/SendDataScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1sqrI4z1sKavkWyaNnyarero9Wn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ea1ef36-9995-4d96-8320-7976b3b1d0ec" name="Default Changelist" comment="" />
+      <created>1621610879588</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621610879588</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="167" y="19" width="1013" height="502" key="AVDManager" timestamp="1623339383047">
+      <screen x="67" y="27" width="1213" height="692" />
+    </state>
+    <state x="167" y="19" width="1013" height="502" key="AVDManager/67.27.1213.692@67.27.1213.692" timestamp="1623339383047" />
+    <state x="165" y="19" key="SettingsEditor" timestamp="1621612798242">
+      <screen x="67" y="27" width="1213" height="692" />
+    </state>
+    <state x="165" y="19" key="SettingsEditor/67.27.1213.692@67.27.1213.692" timestamp="1621612798242" />
+    <state x="361" y="107" width="625" height="522" key="find.popup" timestamp="1623339282802">
+      <screen x="67" y="27" width="1213" height="692" />
+    </state>
+    <state x="361" y="107" width="625" height="522" key="find.popup/67.27.1213.692@67.27.1213.692" timestamp="1623339282802" />
+    <state x="337" y="159" key="run.anything.popup" timestamp="1623307359924">
+      <screen x="67" y="27" width="1213" height="692" />
+    </state>
+    <state x="337" y="159" key="run.anything.popup/67.27.1213.692@67.27.1213.692" timestamp="1623307359924" />
+  </component>
+</project>
