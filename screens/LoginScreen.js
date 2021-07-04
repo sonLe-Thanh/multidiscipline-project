@@ -10,30 +10,47 @@ import {theme} from '../core/theme';
 import {emailValidator} from '../util/emailValidator';
 import {passwordValidator} from '../util/passwordValidator';
 
-var uid = 0;
-
-function getUid() {
-    return uid;
-}
 
 export default function LoginScreen({navigation}){
-    const [user, setUser] = useState([]);
     const [email, setEmail] = useState({value: '', error: ''});
     const [password, setPassword] = useState({value: '', error: ''});
+    
+    const login = async (input_email, input_password) =>{
 
-    useEffect(() => {
-        fetch("http://192.168.56.1:80/api/users/", {
-            method: "GET"
+        return await fetch("http://192.168.1.5:8000/api/auth/login/",{
+            method: "POST",
+            headers: {
+                // 'Accept': 'application/json, text/plain, */*', 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: input_email,
+                password: input_password
+            })
+        }).then((response) => response.json())
+        .then((json)=>{
+            console.log(json);
+            global.uid = json.id;
+            if (typeof global.uid === 'undefined'){
+                setEmail({...email, error:"Invaild email or password"});
+                setPassword({...password, error:"Invaild email or password"});
+            }
+            else {
+                global.email = json.email;
+                global.phone = json.phone_number;
+                global.name = json.name;
+                global.password = input_password;
+                navigation.navigate('HomeScreen');
+            }
+            return;
         })
-        .then((resp) => resp.json())
-        .then((data) => {
-            setUser(data);
+        .catch((error)=>{
+            console.log(error);
+            setEmail({...email, error:"Invaild email or password"});
+            setPassword({...password, error:"Invaild email or password"});
+            return;
         })
-        .catch(error => { console.log("error", error) });
-    }, []);
-
-    // console.log(data);
-
+    }
     const onLoginPressed = () =>{
         const emailError = emailValidator(email.value);
         const passwordError = passwordValidator(password.value);
@@ -42,20 +59,8 @@ export default function LoginScreen({navigation}){
             setPassword({...password, error:passwordError});
             return
         }
-        let able = 0;
-        for (let i = 0; i < user.length; ++i) {
-            if (email.value == user[i].email) {
-                // check password here
-                global.uid = user[i].id;
-                able = 1;
-                break;
-            }
-        }
-        if (!able) return;
-        navigation.reset({
-            index: 0,
-            routes: [{name: 'HomeScreen'}],
-        })
+
+        login(email.value, password.value);
     }
     return (
         <BackGroundMain>
@@ -64,7 +69,7 @@ export default function LoginScreen({navigation}){
                 label="Email"
                 returnKeyType="next"
                 value= {email.value}
-                onChangeText={(text) => setEmail({ value: text, error: '' })}
+                onChangeText={(text) => setEmail({ value: text, error: "" })}
                 error={!!email.error}
                 errorText={email.error}
                 autoCapitalize="none"
@@ -77,9 +82,9 @@ export default function LoginScreen({navigation}){
                 label="Password"
                 returnKeyType="done"
                 value= {password.value}
-                onChangeText={(text) => setPassword({ value: text, error: '' })}
-                error={!!email.error}
-                errorText={email.error}
+                onChangeText={(text) => setPassword({ value: text, error: "" })}
+                error={!!password.error}
+                errorText={password.error}
                 secureTextEntry
             />
 

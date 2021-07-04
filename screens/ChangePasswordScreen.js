@@ -18,7 +18,7 @@ export default function ChangePasswordScreen({navigation}){
     const [newPass1, setNewPass1] = useState({value: '', error: ''});
 
     const onConfirmPressed = () =>{
-        // check password here
+        
         Alert.alert("Changing password", "Are you sure you want to change your password?", [
             { text: "No",},
             { text: "Yes", onPress: () => validatePassword() }
@@ -31,7 +31,7 @@ export default function ChangePasswordScreen({navigation}){
 
     const validatePassword = () => {
         console.log(global.uid);
-        fetch(`http://192.168.56.1:80/api/users/${global.uid}/`, {
+        fetch(`http://192.168.1.5:8000/api/users/${global.uid}/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

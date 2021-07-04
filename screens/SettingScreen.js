@@ -5,65 +5,136 @@ import Button from '../components/Button';
 import { Alert, TouchableWithoutFeedback, Keyboard, FlatList  } from 'react-native';
 import TextInput from '../components/TextInput';
 import {theme} from '../core/theme';
-import {emailValidator} from '../util/emailValidator';
 import { onChange } from 'react-native-reanimated';
 
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export default function SettingScreen({navigation}){
-    const [email, setEmail] = useState({value: '', error: ''});
-    const [password, setPassword] = useState({value: '', error: ''});
     const [name, setName] = useState({value: '', error: ''});
     const [phone, setPhone] = useState({value: '', error: ''});
 
-    const onSavePressed = () =>{
-        const emailError = emailValidator(email.value);
-        if (emailError) {
-            setEmail({...email, error:emailError});
-            //Send data to backend here
-            return
-        }
-
-        // fetch("http://192.168.56.1:80/api/users/", {
+    const changePhoneName = async (toChangeName, toChangePhone) => {
+        console.log(global.email);
+        console.log(global.password);
+        // return await fetch("http://192.168.1.5:8000/api/auth/login/",{
         //     method: "POST",
         //     headers: {
-        //         "Content-Type": "application/json"
+        //         // 'Accept': 'application/json, text/plain, */*', 
+        //         'Content-Type': 'application/json'
         //     },
-        //     body:JSON.stringify({
-        //         password: password.value,
-        //         name: name.value,
-        //         email: email.value,
-        //         phone_number: phone.value
+        //     body: JSON.stringify({
+        //         email: global.email,
+        //         password: global.password
+        //     })
+        // }).then((response) => response.json())
+        // .then((json)=>{
+        //     return fetch("http://192.168.1.5:8000/api/users/"+global.uid+"/",{
+        //         method: "PUT",
+        //         headers: {
+        //             'Accept': 'application/json, text/plain, */*', 
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             password: json.password,
+        //             name: toChangeName,
+        //             email: json.email,
+        //             phone_number: toChangePhone,
+        //         })
+        //     }).then((response)=>response.json())
+        //     .then((json)=>{
+        //         console.log(json);
+        //         Alert.alert(
+        //             "Success!",
+        //             "Information changed!",
+        //             [
+        //                 {text: 'OK', onPress: () => {}}
+        //             ],
+        //             {cancelable: false}
+        //         );
         //     })
         // })
-        // .then((resp) => resp.json())
-        // .catch(error => { console.log("error", error) });
+        // .catch((error)=>{
+        //     console.log(error);
+        //     Alert.alert(
+        //         "Failed!",
+        //         "Information did not change!",
+        //         [
+        //             {text: 'OK', onPress: () => {}}
+        //         ],
+        //         {cancelable: false}
+        //     );
+        // })
+        return await fetch("http://192.168.1.5:8000/api/users/"+global.uid+"/",{
+                method: "PUT",
+                headers: {
+                    'Accept': 'application/json, text/plain, */*', 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    password: global.password,
+                    name: toChangeName,
+                    email: global.email,
+                    phone_number: toChangePhone,
+                })
+        }).then((response) => response.json())
+        .then((json)=>{
+            console.log(json);
+            Alert.alert(
+                "Success!",
+                "Information changed!",
+                [
+                    {text: 'OK', onPress: () => {}}
+                ],
+                {cancelable: false}
+            );
+        })
+        .catch((error)=>{
+            console.log(error);
+            Alert.alert(
+                "Failed!",
+                "Information did not change!",
+                [
+                    {text: 'OK', onPress: () => {}}
+                ],
+                {cancelable: false}
+            );
+        })
+    }
+
+    const onSavePressed = () =>{
+        let phoneToChange = phone.value;
+        let nameToChange = name.value;
+        if (phone.value === '' && name.value === ''){
+            return;
+        }
+        else{
+            if (name.value === '') {
+                nameToChange = global.name;
+            }
+            if (phone.value === ''){
+                phoneToChange = global.phone;
+            }
+            changePhoneName(nameToChange, phoneToChange);
+            return;
+        }
     }
 
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal>
             <TextInput
-                label="Phone"
+                label="Name"
                 returnKeyType="next"
-                value= {phone.value}
-                onChangeText={(text) => setPhone({ value: text, error: '' })}
-                error={!!phone.error}
-                errorText={phone.error}
-                keyboardType="numeric"
+                value= {name.value}
+                onChangeText={(text) => setName({ value: text, error: '' })}
             />
 
             <TextInput
-                label="Email"
-                returnKeyType="next"
-                value= {email.value}
-                onChangeText={(text) => setEmail({ value: text, error: '' })}
-                error={!!email.error}
-                errorText={email.error}
-                autoCapitalize="none"
-                autoCompleteType="email"
-                textContentType="emailAddress"
-                keyboardType="email-address"
+                label="Phone"
+                returnKeyType="done"
+                value= {phone.value}
+                onChangeText={(text) => setPhone({ value: text, error: '' })}
+                keyboardType="numeric"
             />
 
             <Button mode="contained" 

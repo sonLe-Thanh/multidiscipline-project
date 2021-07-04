@@ -16,29 +16,6 @@ export default function RegisterScreen({navigation}){
     const [password, setPassword] = useState({value: '', error: ''});
     const [name, setName] = useState({value: '', error: ''});
     const [phone, setPhone] = useState({value: '', error: ''});
-    const [user, setUser] = useState([]);
-
-    // useEffect(() => {
-    //     fetch("http://192.168.56.1:80/api/users/", {
-    //         method: "GET"
-    //     })
-    //     .then((resp) => resp.json())
-    //     .then((data) => {
-    //         setUser(data);
-    //     })
-    //     .catch(error => { console.log("error", error) });
-    // }, []);
-
-    // useEffect(() => {
-    //     fetch("http://192.168.56.1:80/api/users/", {
-    //         method: "GET"
-    //     })
-    //     .then((resp) => resp.json())
-    //     .then((data) => {
-    //         setUser(data);
-    //     })
-    //     .catch(error => { console.log("error", error) });
-    // }, []);
 
     const onRegisterPressed = () =>{
         const emailError = emailValidator(email.value);
@@ -53,7 +30,7 @@ export default function RegisterScreen({navigation}){
             return
         }
 
-        fetch("http://192.168.56.1:80/api/users/", {
+        fetch("http://192.168.1.5:8000/api/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
