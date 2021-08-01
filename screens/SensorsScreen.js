@@ -8,7 +8,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 
 export default function SensorsScreen({navigation}){
-    const activeKey = "aio_atdS67wAR8mAG3s0MfgeS6ydx7fi";
+    const activeKey = "aio_YqQF29yXm1YVckRjWSB8zrwF229R";
     const apiHeader = "https://io.adafruit.com/api/v2/";
     const dht11Topic = "CSE_BBC/feeds/bk-iot-temp-humid";
 

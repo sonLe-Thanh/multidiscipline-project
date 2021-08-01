@@ -14,7 +14,7 @@ export default function ReceiveDataScreen({navigation}){
     //     receiveData1 = receiveData2 = 'No data received',
     //     receiveJson1 = receiveJson2 = 
     // }
-    const activeKey = "aio_oFng13i2Ap1pb4dpN86jgoULrJok";
+    const activeKey = "aio_YqQF29yXm1YVckRjWSB8zrwF229R";
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const [receiveTopic1, setReceiveTopic1] = useState({value: '', error:''});

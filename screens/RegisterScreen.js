@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {TouchableOpacity, StyleSheet, View} from 'react-native';
+import {TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
 import {Text} from 'react-native-paper';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
@@ -26,11 +26,10 @@ export default function RegisterScreen({navigation}){
             setPassword({...password, error : passwordError});
             setName({...name, error: nameError});
 
-            //Send data to backend here
             return
         }
 
-        fetch("http://192.168.1.5:8000/api/users/", {
+        fetch("http://192.168.1.4:8000/api/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -46,7 +45,17 @@ export default function RegisterScreen({navigation}){
         .then(() => {
             navigation.navigate('LoginScreen');
         })
-        .catch(error => { console.log("error", error) });
+        .catch(error => { 
+            Alert.alert(
+                "Failed!",
+                "There was some connection errors during the process.\nPlease try again later!",
+                [
+                    {text: 'OK', onPress: () => {}}
+                ],
+                {cancelable: false}
+            );
+            console.log("error", error) 
+        });
     }
     
     return (

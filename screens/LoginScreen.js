@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {TouchableOpacity, StyleSheet, View} from 'react-native';
+import {TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
 import {Text} from 'react-native-paper';
 import BackGroundMain from '../components/BackGroundMain';
 import Header from '../components/Header';
@@ -16,8 +16,10 @@ export default function LoginScreen({navigation}){
     const [password, setPassword] = useState({value: '', error: ''});
     
     const login = async (input_email, input_password) =>{
+        navigation.navigate('HomeScreen');
+        return;
 
-        return await fetch("http://192.168.1.5:8000/api/auth/login/",{
+        return await fetch("http://192.168.1.4:8000/api/auth/login/",{
             method: "POST",
             headers: {
                 // 'Accept': 'application/json, text/plain, */*', 

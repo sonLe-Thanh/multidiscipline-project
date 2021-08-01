@@ -102,10 +102,12 @@ const styles = StyleSheet.create({
     },
     addDevicesButton:{
         // backgroundColor: 'white',
+        marginTop: 20,
         width: 80,
         height: 80,
         justifyContent: "center",
         alignItems: "center",
-        top: 50
+        position: "absolute",
+        top: 150
     }
 })

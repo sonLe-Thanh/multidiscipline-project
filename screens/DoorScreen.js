@@ -11,7 +11,7 @@ import { ScrollView } from 'react-native';
 
 export default function DoorScreen({navigation}){
     // const activeKey = "aio_LIDa314NtVpctuI56N4bNL6zWj r x";
-    const activeKey = "aio_atdS67wAR8mAG3s0MfgeS6ydx7fi";
+    const activeKey = "aio_YqQF29yXm1YVckRjWSB8zrwF229R";
     const apiHeader = "https://io.adafruit.com/api/v2/";
     const switchTopic = "CSE_BBC/feeds/bk-iot-magnetic";
     // const switchTopic = "LeThanh/feeds/magnetic-switch";
