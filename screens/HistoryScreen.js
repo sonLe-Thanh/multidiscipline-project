@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableOpacity, Keyboard, Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Alert, TouchableOpacity, Keyboard, Text, View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { LineChart } from 'react-native-chart-kit';
+import { max } from 'react-native-reanimated';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HistoryScreen({navigation}){
@@ -16,11 +17,26 @@ export default function HistoryScreen({navigation}){
     const [show, setShow] = useState(false);
     const [listInputDevice, setListInputDevice] = useState([]);
     const [tempData, setTempData] = useState([]);
-    const [humidityData, setHumidityData] = useState([]);
+    const [humidData, setHumidityData] = useState([]);
     const [rainData, setRainData] = useState([]);
-    const label = ['6:00','7:00','8:00','9:00','10:00','11:00','12:00']
+    const [appearList, setAppearList] = useState([]);
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [avgTemp, setAvgTemp] = useState('Not available');
+    const [maxTemp, setMaxTemp] = useState('Not available');
+    const [minTemp, setMinTemp] = useState('Not available');
+
+    const [avgHumid, setAvgHumid] = useState('Not available');
+    const [maxHumid, setMaxHumid] = useState('Not available');
+    const [minHumid, setMinHumid] = useState('Not available');
+
+    const [avgRain, setAvgRain] = useState('Not available');
+    const [maxRain, setMaxRain] = useState('Not available');
+    const [minRain, setMinRain] = useState('Not available');
 
     const onChange = (event, selectedDate) => {
+        setAppearList([]);
         setHumidityData([]);
         setTempData([]);
         setRainData([]);
@@ -52,38 +68,43 @@ export default function HistoryScreen({navigation}){
 
     const getTimeSerieDate = (_start_date, _end_date, _aio_key, _topic_name, limit) =>{
         var url = apiHeader+_topic_name+"/data?start_date="+_start_date+"&end_date="+_end_date+"&limit="+limit;
-        console.log(url)
-        console.log(_aio_key)
-        fetch(url, {
+        // console.log(url)
+        // console.log(_aio_key)
+        return fetch(url, {
             method: "GET",
             headers:{
                 "X-AIO-Key": _aio_key,
             }
-        }).then((response)=>response.json())
+        })
+        .then((response)=>response.json())
         .then((json)=>{
-            console.log(json)
             if (json.length>0){
                 var testJson = JSON.parse(json[0].value)
-                console.log("test"+testJson)
-                console.log(json.length)
-                if (testJson[0].name==="TEMP-HUMID"){
+                // console.log(testJson.name)
+                // console.log(appearList.includes(testJson.name))
+                if (testJson.name==="TEMP-HUMID" && !appearList.includes(testJson.name)){
+                    // console.log("DHT11")
                     // DHT11 Device
+                    setAppearList(appearList=>[...appearList, testJson.name])
                     for (var i =0;i<json.length;i++){
                         var date = Date.parse(json[i].created_at);
-                        var dataPoint = JSON.parse(json[i]);
+                        var dataPoint = JSON.parse(json[i].value);
                         var infoPoint = dataPoint.data.split('-');
                         // 0 temp, 1 humid
-                        setTempData([...tempData, infoPoint[0]]);
-                        setHumidityData([...humidityData, infoPoint[1]]);
-
+                        setTempData(tempData=>[...tempData, parseFloat(infoPoint[0])]);
+                        // console.log(infoPoint);
+                        setHumidityData(humidityData=>[...humidityData, parseFloat(infoPoint[1])]);
                     }
                 }
-                else if (testJson[0].name === "RAIN"){
-                    for (var i =0;i<json.length;i++){
-                        var date = Date.parse(json[i].created_at);
-                        var dataPoint = JSON.parse(json[i]);
-                        setRainData([...rainData, dataPoint.data])
+                else if (testJson.name === "RAIN" && !appearList.includes(testJson.name)){
+                    // console.log("DHT12")
+                    setAppearList(appearList=>[...appearList, testJson.name])
+                    for (var j =0;j<json.length;j++){
+                        var date = Date.parse(json[j].created_at);
+                        var dataPoint = JSON.parse(json[j].value);
+                        setRainData(rainData=>[...rainData, parseFloat(dataPoint.data)])
                     }
+                    // console.log(appearList)
                 }
             }
         })
@@ -96,42 +117,85 @@ export default function HistoryScreen({navigation}){
         .then((json)=>{
             setListInputDevice(json)
         })
-        .then(()=>{
-            for (var i =0;i<listInputDevice.length;i++){
-                getTimeSerieDate(_start_date, _end_date,listInputDevice[i].aio_key, listInputDevice[i].topic_name,24);
-            }
-            console.log(tempData[0])
-        })
         .catch((error)=>{
             console.log(error)
         })
         .finally(()=>{
             console.log(listInputDevice)
+            for (var i =0;i<listInputDevice.length;i++){
+                console.log(listInputDevice[i].topic_name);
+                getTimeSerieDate(_start_date, _end_date,listInputDevice[i].aio_key, listInputDevice[i].topic_name,24);
+            }
+            setIsLoading(false);
+            if (tempData.length>0){
+                var minT = tempData[0];
+                var maxT = tempData[0];
+                var avgT = 0;
+                for (var i=0; i<tempData.length;i++){
+                    avgT +=tempData[i];
+                    if (tempData[i]>maxT){
+                        maxT = tempData[i];
+                    }
+                    if (tempData[i]<minT){
+                        minT = tempData[i];
+                    }
+                }
+                avgT /= tempData.length;
+                setAvgTemp(avgT+"*C");
+                setMaxTemp(maxT+"*C");
+                setMinTemp(minT+"*C");
+            }
+
+            if (humidData.length>0){
+                var minH = humidData[0];
+                var maxH = humidData[0];
+                var avgH = 0;
+                for (var i=0; i<humidData.length;i++){
+                    avgH +=humidData[i];
+                    if (humidData[i]>maxH){
+                        maxH = humidData[i];
+                    }
+                    if (humidData[i]<minH){
+                        minH = humidData[i];
+                    }
+                }
+                avgH /= humidData.length;
+                setAvgHumid(avgH+"*C");
+                setMaxHumid(maxH+"*C");
+                setMinHumid(minH+"*C");
+            }
+
+            if (rainData.length>0){
+                var minR = rainData[0];
+                var maxR = rainData[0];
+                var avgR = 0;
+                for (var i=0; i<rainData.length;i++){
+                    avgR +=rainData[i];
+                    if (rainData[i]>maxR){
+                        maxH = rainData[i];
+                    }
+                    if (rainData[i]<minR){
+                        minH = rainData[i];
+                    }
+                }
+                avgR /= rainData.length;
+                setAvgRain(avgR+"*C");
+                setMaxRain(maxR+"*C");
+                setMinRain(minR+"*C");
+            }
         })
     }
-    const his_humidity = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-          {
-            data: [
-              40,
-              80,
-              55,
-              70,
-              60,
-              50
-            ]
-          }
-        ]
-      }
-
     return (
         <BackGroundNormal>
+            
             <View>
                 <TouchableOpacity style={styles.button} onPress={showDatepicker}>
                     <Text style = {styles.text}>Choose a date</Text>
                 </TouchableOpacity>
             </View>
+            <Header>
+                   PAST DATA
+            </Header>
             {show && (
                 <DateTimePicker
                     testID="dateTimePicker"
@@ -142,29 +206,52 @@ export default function HistoryScreen({navigation}){
                     onChange={onChange}
                 />
             )}
-            {/* <LineChart
-                data={his_humidity}
-                width={Dimensions.get("window").width} // from react-native
-                height={220}
-//                yAxisLabel="$"
-                yAxisSuffix="C"
-                yAxisInterval={1} // optional, defaults to 1
-                chartConfig={{
-                    backgroundGradientFrom: "#1E2923",
-                    backgroundGradientFromOpacity: 0,
-                    backgroundGradientTo: "#08130D",
-                    backgroundGradientToOpacity: 0.5,
-                    color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
-                    strokeWidth: 2, // optional, default 3
-                    barPercentage: 0.5,
-                    useShadowColorFromDataset: false // optional
-                }}
-//                bezier
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16
-                }}
-              /> */}
+            {
+            isLoading
+            ?<View/>
+            :<View>
+                <Text>
+                    Maximum temperature: {maxTemp}
+                </Text>
+                <Text>
+                    Minimum temperature: {minTemp}
+                </Text>
+                <Text>
+                    Average temperature: {avgTemp}
+                </Text>
+                {/* <View
+                style={{height:1, width:'100%',backgroundColor:'black'}}
+                >
+                </View> */}
+                
+               
+                <Text>
+                    Maximum humidity: {maxHumid}
+                </Text>
+                <Text>
+                    Minimum humidity: {minHumid}
+                </Text>
+                <Text>
+                    Average humidity: {avgHumid}
+                </Text>
+                {/* <View
+                style={{height:1, width:'100%',backgroundColor:'black'}}
+                >
+                </View> */}
+
+                
+                <Text>
+                    Maximum rain level: {maxRain}
+                </Text>
+                <Text>
+                    Minimum rain level: {minRain}
+                </Text>
+                <Text>
+                    Average rain level: {avgRain}
+                </Text>
+                
+            </View>
+            }
         </BackGroundNormal>
   );
 }
