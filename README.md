@@ -6,22 +6,30 @@ Multidiscipline Project
 
 Install expo
 
-Refer to https://docs.expo.io for full information
+Refer to https://docs.expo.io, install expo, then pay a visit at simulator page for preparing process.
 
-# Completed tasks
+# Starting the project
+# Mobile app
+After installing expo and android simulator successfully, start the project by
+```
+expo start
+```
 
-1. Default screen
-2. Register screen
-3. Connect to server
-4. Receive data from feed (io.adafruit.com)
-5. Send data to feed (io.adafruit.com)
+Then click a to start on the simulator.
+
+# Back-end
+Visit back-end page of the poject and do as written in that README to start server.
+
+# Third party
+For testing, one should register one account on io.adafruit.com and create at least 3 feeds.
+
+For full documents, visit io.adafruit.com homepage or use the instruction file.
+
+# To do
+1. Finish styles
+2. Add icons
+3. Fix some warning.
+
 
 # Impotant note
 
-Since my active key will be changed each time i push, it is advice that you should take your io.adafruit.com account to demo the send and receive functions.
-
---- Note from To Duy Hung:
-
-ShowScreen gets data from humidity sensor and demonstrates 2 kinds of graph:
-1. Line graph for humidity from history
-2. Circle graph for current humidity  
