@@ -1,36 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native'
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
-import { Alert, TouchableWithoutFeedback, Keyboard, Text  } from 'react-native';
+import { Alert, TouchableWithoutFeedback, Keyboard, Text, View  } from 'react-native';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScrollView } from 'react-native';
 
 export default function DoorScreen({navigation}){
-    // const activeKey = "aio_LIDa314NtVpctuI56N4bNL6zWj r x";
-    const activeKey = "aio_YqQF29yXm1YVckRjWSB8zrwF229R";
+    const [listOutputDevice, setListOutputDevice] = useState([]);
     const apiHeader = "https://io.adafruit.com/api/v2/";
-    const switchTopic = "CSE_BBC/feeds/bk-iot-magnetic";
-    // const switchTopic = "LeThanh/feeds/magnetic-switch";
     const [doorStatus, setDoorStatus] = useState("Fetching");
-    const [doorAction, setDoorAction] = useState("Fetching")
+    const [doorAction, setDoorAction] = useState("Fetching");
+    const [isLoadingDevices, setIsLoadingDevices] = useState(true);
 
-    function receivedDataFromFeed(topic, mode) {
-        var url = apiHeader+topic+"/data/"+mode;
+
+    const receivedDataFromFeed = (_aiokey, _topic, _mode) => {
+        var url = apiHeader+_topic+"/data/"+_mode;
+        console.log(url)
+        console.log(_aiokey)
         fetch(url, {
             method: "GET",
             headers: {
-                "X-AIO-Key": activeKey,
+                "X-AIO-Key": _aiokey,
             }
         }).then(response =>response.json())
         .then((json)=>{
-            // console.log(json)
             var receivedObj = JSON.parse(json.value)
             var receivedData = receivedObj.data;
-            console.log(receivedData);
             if (receivedData === "1"){
                 setDoorStatus("Door closed!");
                 setDoorAction("Open the door");
@@ -39,14 +38,33 @@ export default function DoorScreen({navigation}){
                 setDoorStatus("Door opened!");
                 setDoorAction("Close the door");
             }
-            // setTimeout(receivedDataFromFeed, 40000,switchTopic,"last");
         })
         .catch((error)=>{
             console.error(error)
         })
     };
 
-    function changeDoorStatus(topic, action){
+    const getOutputDevice = () =>{
+        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=O",{
+            method: "GET"
+        })
+        .then((response)=>response.json())
+        .then((json)=>{
+            setListOutputDevice(json)
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+        .finally(()=>{
+            console.log(listOutputDevice)
+            for (var i =0; i<listOutputDevice.length;i++){
+                receivedDataFromFeed(listOutputDevice[i].aio_key, listOutputDevice[i].topic_name, "last")
+            }
+            setIsLoadingDevices(false);
+        })
+    }
+
+    function changeDoorStatus(_aiokey, topic, action){
         //0 to close the door, 1 to open the door
         var url = apiHeader + topic+ "/data";
         console.log(url);
@@ -62,7 +80,7 @@ export default function DoorScreen({navigation}){
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
-                "X-AIO-Key": activeKey,
+                "X-AIO-Key": _aiokey,
             },
             body: JSON.stringify({
                 value: JSON.stringify({
@@ -91,19 +109,28 @@ export default function DoorScreen({navigation}){
             console.error(error);
         })
     }
-    receivedDataFromFeed(switchTopic, "last");
+    useEffect(()=>{
+        getOutputDevice();
+    },[])
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
-        <BackGroundNormal>
+        <BackGroundNormal style={{marginTop:50}}>
             <ScrollView style={{width:"100%"}}>
-                <Header>Front door</Header>
-                <Text style={styles.status} >{doorStatus}</Text>
-                <Button
-                    mode="contained"
-                    onPress={()=>changeDoorStatus(switchTopic, doorAction)}
-                >
-                    {doorAction}
-                </Button>
+                <Text style={{marginTop:20}}>DOOR AND WINDOW</Text>
+                {listOutputDevice.map((value, index)=>{
+                    return (
+                        <View key={index}>
+                            <Text style={styles.status} >{doorStatus}</Text>
+                            <Button
+                                mode="contained"
+                                onPress={()=>changeDoorStatus(value.aio_key, value.topic_name, doorAction)}
+                            >
+                            {doorAction}
+                            </Button>
+                        </View>
+                        
+                    );
+                })}
             </ScrollView>
         </BackGroundNormal>
         // </TouchableWithoutFeedback>
