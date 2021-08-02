@@ -16,11 +16,7 @@ export default function AddDeviceScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const onAddDevicePress = () =>{
-        // console.log(topic.value)
-        // console.log(aio_key.value)
-        // console.log(type.value);
-        // return 
-        fetch("http://192.168.1.4:8000/api/devices/", {
+        fetch("http://192.168.1.9:8000/api/devices/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -28,7 +24,8 @@ export default function AddDeviceScreen({navigation}){
             body:JSON.stringify({
                 topic_name: topic.value,
                 aio_key: aio_key.value,
-                type: type.value
+                type: type.value,
+                user: global.uid
             })
         })
         .then((resp) => resp.json())
@@ -99,16 +96,6 @@ export default function AddDeviceScreen({navigation}){
                 onSelect={(selectedItem, index) => {
                     setType({value: selectedItem});
                 }}
-                // buttonTextAfterSelection={(selectedItem, index) => {
-                //     // text represented after item is selected
-                //     // if data array is an array of objects then return selectedItem.property to render after item is selected
-                //     return selectedItem
-                // }}
-                // rowTextForSelection={(item, index) => {
-                //     // text represented for each item in dropdown
-                //     // if data array is an array of objects then return item.property to represent item in dropdown
-                //     return item
-                // }}
             />
 
             <Button mode="contained" onPress={onAddDevicePress}> 

@@ -64,7 +64,7 @@ export default function SettingScreen({navigation}){
         //         {cancelable: false}
         //     );
         // })
-        return await fetch("http://192.168.1.4:8000/api/users/"+global.uid+"/",{
+        return await fetch("http://192.168.1.9:8000/api/users/"+global.uid+"/",{
                 method: "PUT",
                 headers: {
                     'Accept': 'application/json, text/plain, */*', 

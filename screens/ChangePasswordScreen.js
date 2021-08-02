@@ -25,13 +25,9 @@ export default function ChangePasswordScreen({navigation}){
         ])
     }
 
-    const getUid = () => {
-
-    }
-
     const validatePassword = () => {
         console.log(global.uid);
-        fetch(`http://192.168.1.4:8000/api/users/${global.uid}/`, {
+        fetch(`http://192.168.1.9:8000/api/users/${global.uid}/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

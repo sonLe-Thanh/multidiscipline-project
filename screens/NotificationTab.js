@@ -209,23 +209,38 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+import { Text, View, Platform, ActivityIndicator } from 'react-native';
+import BackGroundNormal from '../components/BackGroundNormal';
+import Header from '../components/Header';
+import Button from '../components/Button';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [listNotifi, setListNotifi] = useState([]);
   const notificationListener = useRef();
   const responseListener = useRef();
 
+  const fetchAllNotifi = () =>{
+    fetch("http://192.168.1.9:8000/api/notifications/?user="+global.uid,{
+      metthod: "GET",
+    })
+    .then((response)=>response.json())
+    .then((json)=>{
+      setListNotifi(json);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+    .finally(()=>{
+      console.log(listNotifi)
+      setIsLoading(false);
+    })
+  }
   useEffect(() => {
+    fetchAllNotifi();
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     // This listener is fired whenever a notification is received while the app is foregrounded
@@ -238,6 +253,7 @@ export default function App() {
       console.log(response);
     });
 
+    
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
@@ -245,47 +261,46 @@ export default function App() {
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}>
-      {/* <Text>Your expo push token: {expoPushToken}</Text> */}
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Title: {notification && notification.request.content.title} </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
+    <BackGroundNormal>
+      <Header>NOTIFICATIONS</Header>
+      {isLoading?
+      <ActivityIndicator size="large" color="#0000ff"/>
+      :
+      <View style={{flex: 1, marginTop: 50, justifyContent:'center', width:'100%'}}>
+        <FlatList
+          style={{flex: 1}}
+          data = {listNotifi}
+          keyExtractor={(item, index)=>index}
+          renderItem={({item})=>{
+            return (
+              <View style={{flex: 1, flexDirection: 'row', marginBottom: 3}}>
+                <View style={{flex: 1, justifyContent:'center', marginLeft:3}}>
+                  <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
+                    {item.title}
+                  </Text>
+                  <Text style={{fontSize: 16, color:'red'}}>
+                    {item.time}
+                  </Text>
+                  <Text>
+                    {item.content}
+                  </Text>
+                </View>
+              </View>
+            )
+          }}
+          ItemSeparatorComponent={()=>{
+            return (
+              <View
+                style={{height:1, width:'100%',backgroundColor:'black'}}
+              >
+              </View>
+            )
+          }}
+        />
       </View>
-      <Button
-        title="Press to Send Notification"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-        }}
-      />
-    </View>
-  );
-}
-
-// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/notifications
-async function sendPushNotification(expoPushToken) {
-  const message = {
-    to: expoPushToken,
-    sound: 'default',
-    title: 'Original Title',
-    body: 'And here is the body!',
-    data: { someData: 'goes here' },
-  };
-
-  await fetch('https://exp.host/--/api/v2/push/send', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Accept-encoding': 'gzip, deflate',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(message),
-  });
+      }
+    </BackGroundNormal>
+  ); 
 }
 
 async function registerForPushNotificationsAsync() {
@@ -313,3 +328,11 @@ async function registerForPushNotificationsAsync() {
   }
   return token;
 }
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
