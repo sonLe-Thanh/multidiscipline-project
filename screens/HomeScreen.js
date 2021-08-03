@@ -8,7 +8,6 @@ import HomeStackTab from './HomeStackTab';
 import NotificationTab from './NotificationTab';
 import SettingTab from './SettingTab';
 import { Text } from 'react-native';
-
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 

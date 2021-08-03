@@ -15,7 +15,7 @@ export default function HomeMainScreen({navigation}){
                 onPress = {() => {navigation.navigate("Sensors")}}
             >
                 {/* <Text>Sensor</Text> */}
-                <Image source={require("../assets/images/favicon.png")}/>
+                <Image source={require("../assets/images/SensorBtn.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -23,7 +23,7 @@ export default function HomeMainScreen({navigation}){
                 onPress = {() => {navigation.navigate("Doors")}}
             >
                 {/* <Text>Doors</Text> */}
-                <Image source={require("../assets/images/favicon.png")}/>
+                <Image source={require("../assets/images/DoorsBtn.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -31,7 +31,7 @@ export default function HomeMainScreen({navigation}){
                 onPress = {() => {navigation.navigate("History")}}
             >
                 {/* <Text>History</Text> */}
-                <Image source={require("../assets/images/favicon.png")}/>
+                <Image source={require("../assets/images/HistoryBtn.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -39,7 +39,7 @@ export default function HomeMainScreen({navigation}){
                 onPress = {() => {navigation.navigate("Devices")}}
             >
                 {/* <Text>Devices</Text> */}
-                <Image source={require("../assets/images/favicon.png")}/>
+                <Image source={require("../assets/images/DevicesBtn.png")}/>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -47,7 +47,7 @@ export default function HomeMainScreen({navigation}){
                 onPress = {() => {navigation.navigate("AddDevice")}}
             >
                 {/* <Text>Add device</Text> */}
-                <Image source={require("../assets/images/favicon.png")}/>
+                <Image source={require("../assets/images/AddDeviceBtn.png")}/>
             </TouchableOpacity>
 
             <Text></Text>
