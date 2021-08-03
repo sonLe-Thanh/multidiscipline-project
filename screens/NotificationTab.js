@@ -1,215 +1,7 @@
-// import React, {useState, useEffect} from 'react';
-// import BackGroundNormal from '../components/BackGroundNormal';
-// import Header from '../components/Header';
-// import Button from '../components/Button';
-// import { Alert, TouchableOpacity, SafeAreaView, View, Text, StyleSheet, ScrollView } from 'react-native';
-// import { Transition, Transitioning } from 'react-native-reanimated';
-// // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import * as firebase from 'firebase';
-// import { Permissions, Notifications } from 'expo';
-// import * as Application from 'expo-application';
-
-// export default function NotificationTab({navigation}){
-//     const [currentIndex, setCurrentIndex] = React.useState(null);
-//     const ref = React.useRef();
-//     console.log(Application.androidId);
-//     console.log(Application.applicationId);
-
-//     useEffect(()=>{
-//         registerForPushNotifications();
-//     });
-
-//     registerForPushNotifications = async () =>{
-//         const {status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-
-//         let finalStatus = status;
-
-//         if (status !== 'granted'){
-//             const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-//             finalStatus = status;
-//         }
-
-//         // No permission
-//         if (finalStatus !== 'granted'){ return; }
-
-//         // Get push notifications token
-//         let token = await Notifications.getExpoPushTokenAsync();
-//         console.log(token);;
-//     }
-
-//     return (
-//         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
-//         //BackGroundNormal
-//         <ScrollView style = {{marginTop:20}}>
-//             {/* <StatusBar hidden /> */}
-//             {data.map(({ bg, color, header, content }, index) => {
-//                 return (
-//                 <TouchableOpacity
-//                     key={header}
-//                     onPress={() => {
-//                         setCurrentIndex(index === currentIndex ? null : index);
-//                     }}
-//                     style={styles.cardContainer}
-//                     activeOpacity={0.9}
-//                 >
-//                     <View style={[styles.card, { backgroundColor: bg }]}>
-//                         <Text style={[styles.heading, { color }]}>{header}</Text>
-//                         {index === currentIndex && (
-//                             <View style={styles.contentList}>
-//                                 {content.map((line) => (
-//                                     <Text key={line} style={[styles.body, { color }]}>
-//                                         {line}
-//                                     </Text>
-//                                 ))}
-//                             </View>
-//                         )}
-//                     </View>
-//                 </TouchableOpacity>
-//                 );
-//             })}
-//         </ScrollView>
-//         // </TouchableWithoutFeedback>
-//     );    
-// }
-
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#fff',
-//         justifyContent: 'center',
-//         marginTop: 20,
-//     },
-//     cardContainer: {
-//         marginTop: 1,
-//         flexGrow: 1,
-//     },
-//     card: {
-//         flexGrow: 1,
-//         alignItems: 'center',
-//     //   justifyContent: 'center',
-//     },
-//     heading: {
-//         fontSize: 38,
-//         fontWeight: '900',
-//         textTransform: 'uppercase',
-//         letterSpacing: -2,
-//     },
-//     body: {
-//         fontSize: 20,
-//         lineHeight: 20 * 1.5,
-//         textAlign: 'center',
-//     },
-//     subCategoriesList: {
-//         marginTop: 20,
-//     },
-// });
-
-// var data = [
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 1',
-//         content: ["Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! Notification 1 content! "],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 2',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 3',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 4',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 5',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 6',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 7',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 8',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 9',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 10',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 11',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 12',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 13',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 14',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 15',
-//         content: ["notification 2 content"],
-//     },
-//     {
-//         bg: 'gray',
-//         color: 'white',
-//         header: 'notification 16',
-//         content: ["notification 2 content"],
-//     },
-// ];
-
-
-
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Platform, ActivityIndicator } from 'react-native';
+import { Text, View, Platform, ActivityIndicator, Image, StyleSheet } from 'react-native';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
@@ -237,12 +29,12 @@ export default function App() {
       console.log(error);
     })
     .finally(()=>{
-      console.log(listNotifi)
+      // console.log(listNotifi)
       setIsLoading(false);
     })
   }
   useEffect(() => {
-    fetchAllNotifi();
+    
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     // This listener is fired whenever a notification is received while the app is foregrounded
@@ -254,7 +46,7 @@ export default function App() {
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
     });
-
+    fetchAllNotifi();
     
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
@@ -268,22 +60,26 @@ export default function App() {
       {isLoading?
       <ActivityIndicator size="large" color="#0000ff"/>
       :
-      <View style={{flex: 1, marginTop: 50, justifyContent:'center', width:'100%'}}>
+      <View style={{marginTop: 50, justifyContent:'center', width:'100%'}}>
         <FlatList
-          style={{flex: 1}}
+          style={{}}
           data = {listNotifi}
           keyExtractor={(item, index)=>index}
           renderItem={({item})=>{
             return (
-              <View style={{flex: 1, flexDirection: 'row', marginBottom: 3}}>
-                <View style={{flex: 1, justifyContent:'center', marginLeft:3}}>
-                  <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
+              <View style={{flexDirection: 'row', marginBottom: 3}}>
+                <View style={{justifyContent:'center', marginLeft:3}}>
+                  <Image
+                    style={deviceCardStyle.tinyLogo}
+                    source={require('../assets/images/noti.png')}
+                  />
+                  <Text style={{fontSize: 30, color: 'green', marginBottom: 15}}>
                     {item.title}
                   </Text>
-                  <Text style={{fontSize: 16, color:'red'}}>
-                    {item.time}
+                  <Text style={{fontSize: 15, color:'red'}}>
+                    {item.time.split('T')[0]}
                   </Text>
-                  <Text>
+                  <Text style={{fontSize: 30, color: 'green', marginBottom: 15}}>
                     {item.content}
                   </Text>
                 </View>
@@ -338,3 +134,11 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+
+const deviceCardStyle = StyleSheet.create({
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+})
