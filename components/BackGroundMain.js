@@ -3,13 +3,13 @@ import {ImageBackground, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedb
 // import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {theme} from '../core/theme';
 
-const image_link = '../assets/images/mainscreen_background.jpg';
+const image_link = '../assets/images/dark-mainscreen-background.png';
 
 export default function mainBackground({ children }){
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <ImageBackground
-                source= {require('../assets/images/mainscreen_background.jpg')}
+                source={require(image_link)}
                 style = {styles.background}
                 style={styles.background}
             >

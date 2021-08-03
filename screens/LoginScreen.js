@@ -67,7 +67,7 @@ export default function LoginScreen({navigation}){
     }
     return (
         <BackGroundMain>
-            <Header>RAIN FORCAST SYSTEM</Header>
+            <Header>RAIN FORECAST SYSTEM</Header>
             <TextInput
                 label="Email"
                 returnKeyType="next"

@@ -11,8 +11,11 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     top: 10,
-    fontSize: 30,
-    color: theme.colors.primary,
+    fontSize: 32,
+    // color: theme.colors.primary,
+    color: "white",
+    textShadowColor: "black",
+    textShadowRadius: 16,
     fontWeight: 'bold',
     paddingVertical: 12,
     textAlign: 'center',
