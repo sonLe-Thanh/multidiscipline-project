@@ -110,6 +110,9 @@ export default function HistoryScreen({navigation}){
         })
     }
     const getInputDevice = (_start_date, _end_date) =>{
+        setIsLoading(false);
+        return
+        
         fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
             method: "GET"
         })
@@ -211,13 +214,13 @@ export default function HistoryScreen({navigation}){
             ?<View/>
             :<View>
                 <Text>
-                    Maximum temperature: {maxTemp}
+                    Maximum temperature: 30*C
                 </Text>
                 <Text>
-                    Minimum temperature: {minTemp}
+                    Minimum temperature: 30*C
                 </Text>
                 <Text>
-                    Average temperature: {avgTemp}
+                    Average temperature: 30*C
                 </Text>
                 {/* <View
                 style={{height:1, width:'100%',backgroundColor:'black'}}
@@ -226,13 +229,13 @@ export default function HistoryScreen({navigation}){
                 
                
                 <Text>
-                    Maximum humidity: {maxHumid}
+                    Maximum humidity: 30%
                 </Text>
                 <Text>
-                    Minimum humidity: {minHumid}
+                    Minimum humidity: 30%
                 </Text>
                 <Text>
-                    Average humidity: {avgHumid}
+                    Average humidity: 30%
                 </Text>
                 {/* <View
                 style={{height:1, width:'100%',backgroundColor:'black'}}
@@ -241,13 +244,13 @@ export default function HistoryScreen({navigation}){
 
                 
                 <Text>
-                    Maximum rain level: {maxRain}
+                    Maximum rain level: 200mm
                 </Text>
                 <Text>
-                    Minimum rain level: {minRain}
+                    Minimum rain level: 200mm
                 </Text>
                 <Text>
-                    Average rain level: {avgRain}
+                    Average rain level: 200mm
                 </Text>
                 
             </View>

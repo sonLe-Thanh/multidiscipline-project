@@ -219,7 +219,21 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [listNotifi, setListNotifi] = useState([]);
+  const [listNotifi, setListNotifi] = useState([
+  {
+    "id":1,
+    "title": "Hello",
+    "content": "1234",
+    "time": "15:00"
+  },
+  {
+    "id":2,
+    "title": "Hi",
+    "content": "5678",
+    "time": "16:00"
+  }
+    ]);
+  }
   const notificationListener = useRef();
   const responseListener = useRef();
 
@@ -240,7 +254,7 @@ export default function App() {
     })
   }
   useEffect(() => {
-    fetchAllNotifi();
+    // fetchAllNotifi();
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     // This listener is fired whenever a notification is received while the app is foregrounded

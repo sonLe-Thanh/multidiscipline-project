@@ -10,11 +10,17 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { ScrollView } from 'react-native';
 
 export default function DoorScreen({navigation}){
-    const [listOutputDevice, setListOutputDevice] = useState([]);
+    const [listOutputDevice, setListOutputDevice] = useState([{
+        "id":1,
+        "user":1,
+        "topic_name": "LeThanh/feeds/buzzer",
+        "aio_key": "aio_asfsadfsfsd",
+        "type": "Rain sensor"
+    }]);
     const apiHeader = "https://io.adafruit.com/api/v2/";
-    const [doorStatus, setDoorStatus] = useState("Fetching");
-    const [doorAction, setDoorAction] = useState("Fetching");
-    const [isLoadingDevices, setIsLoadingDevices] = useState(true);
+    const [doorStatus, setDoorStatus] = useState("Closing");
+    const [doorAction, setDoorAction] = useState("Open the door");
+    const [isLoadingDevices, setIsLoadingDevices] = useState(false);
 
 
     const receivedDataFromFeed = (_aiokey, _topic, _mode) => {
@@ -109,9 +115,9 @@ export default function DoorScreen({navigation}){
             console.error(error);
         })
     }
-    useEffect(()=>{
-        getOutputDevice();
-    },[])
+    // useEffect(()=>{
+    //     getOutputDevice();
+    // },[])
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal style={{marginTop:50}}>
@@ -123,7 +129,6 @@ export default function DoorScreen({navigation}){
                             <Text style={styles.status} >{doorStatus}</Text>
                             <Button
                                 mode="contained"
-                                onPress={()=>changeDoorStatus(value.aio_key, value.topic_name, doorAction)}
                             >
                             {doorAction}
                             </Button>

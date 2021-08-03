@@ -10,26 +10,41 @@ import { View } from '../components/Themed';
 import { FlatList } from 'react-native-gesture-handler';
 
 export default function DevicesScreen({navigation}){
-    const [devices, setDevices] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [devices, setDevices] = useState([
+    {
+        "id":1,
+        "user":1,
+        "topic_name": "LeThanh/feeds/buzzer",
+        "aio_key": "aio_asfsadfsfsd",
+        "type": "Rain sensor"
+    },
+    {
+         "id":2,
+        "user":1,
+        "topic_name": "LeThanh/feeds/dht11-humidity",
+        "aio_key": "aio_asfsadfsfsd",
+        "type": "DHT11"
+    }
+    ]);
+    const [isLoading, setIsLoading] = useState(false);
     
-    useEffect(()=>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid,{
-            method: "GET",
-        }).then((response)=>response.json())
-        .then((json)=>{
-            setDevices(json);
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
-        .finally(()=>{
-            console.log(devices)
-            console.log(global.uid)
-            setIsLoading(false)
-        })
-    },[])
-    console.log(global.uid);
+    // useEffect(()=>{
+    //     fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid,{
+    //         method: "GET",
+    //     }).then((response)=>response.json())
+    //     .then((json)=>{
+    //         setDevices(json);
+    //     })
+    //     .catch((error)=>{
+    //         console.log(error);
+    //     })
+    //     .finally(()=>{
+    //         // console.log(devices)
+    //         // console.log(global.uid)
+    //         setIsLoading(false)
+    //     })
+    // },[])
+    // console.log(global.uid);
     return (
         <BackGroundNormal>
             <Header>YOUR DEVICE</Header>
