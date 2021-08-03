@@ -46,17 +46,17 @@ export default function AddDeviceScreen({navigation}){
                     {cancelable: false}
                 );
             })
-            .catch(error => { 
-                Alert.alert(
-                    "Failed",
-                    "There was some errors during the process\nPlease try again!",
-                    [
-                        {text: 'OK', onPress: () => {}}
-                    ],
-                    {cancelable: false}
-                );
-                console.log("error", error) 
-            });
+            // .catch(error => { 
+            //     Alert.alert(
+            //         "Failed",
+            //         "There was some errors during the process\nPlease try again!",
+            //         [
+            //             {text: 'OK', onPress: () => {}}
+            //         ],
+            //         {cancelable: false}
+            //     );
+            //     console.log("error", error) 
+            // });
             // navigation.navigate('HomeScreen');
         })
         .catch(error => { 

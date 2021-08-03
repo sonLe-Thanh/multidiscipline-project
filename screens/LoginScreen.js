@@ -31,7 +31,7 @@ export default function LoginScreen({navigation}){
             })
         }).then((response) => response.json())
         .then((json)=>{
-            console.log(json);
+            // console.log(json);
             global.uid = json.id;
             if (typeof global.uid === 'undefined'){
                 setEmail({...email, error:"Invaild email or password"});

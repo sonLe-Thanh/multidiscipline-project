@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, View  } from 'react-native';
-
+import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, View,StyleSheet  } from 'react-native';
+import * as Progress from 'react-native-progress';
 
 export default function SensorsScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
-    const [temparature, setTemparature] = useState('--°C');
-    const [humidity, setHumidity] = useState("--%");
+    const [temparature, setTemparature] = useState(0);
+    const [humidity, setHumidity] = useState(0);
     const [rainLevel, setRainLevel] = useState("--mm");
 
     const [listInputDevice, setListInputDevice] = useState([]);
@@ -16,8 +16,6 @@ export default function SensorsScreen({navigation}){
 
     const receivedDataFromFeed = (_aiokey, _topic, _mode) => {
         var url = apiHeader+_topic+"/data/"+_mode;
-        console.log(url)
-        console.log(_aiokey)
         fetch(url, {
             method: "GET",
             headers: {
@@ -25,12 +23,12 @@ export default function SensorsScreen({navigation}){
             }
         }).then(response =>response.json())
         .then((json)=>{
-            console.log(json)
+            // console.log(json)
             var receivedObj = JSON.parse(json.value)
             if (receivedObj.name === "TEMP-HUMID") {
                 var receivedData = receivedObj.data.split('-');
-                setTemparature(receivedData[0]+"°C");
-                setHumidity(receivedData[1]+"%");
+                setTemparature(parseFloat(receivedData[0]));
+                setHumidity(parseFloat(receivedData[1]));
             }
             else if (receivedObj.name === "RAIN") {
                 setRainLevel(receivedObj.data+"mm")
@@ -53,10 +51,13 @@ export default function SensorsScreen({navigation}){
             console.log(error)
         })
         .finally(()=>{
-            console.log(listInputDevice)
+            // console.log(listInputDevice)
             for (var i =0; i<listInputDevice.length;i++){
                 receivedDataFromFeed(listInputDevice[i].aio_key, listInputDevice[i].topic_name, "last")
             }
+            // console.log(temparature)
+            // console.log(humidity)
+            // console.log(rainLevel)
             setIsLoadingDevices(false);
         })
     }
@@ -71,16 +72,48 @@ export default function SensorsScreen({navigation}){
             {isLoadingDevices?
             <ActivityIndicator size="large" color="#0000ff"/>
             :
-            <View>
-                <Text>
-                    Current temparature: {temparature}
+            <View
+                style={{flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',}}
+            >
+                <Text style={styles.text}>
+                    Temparature
                 </Text>
-                <Text>
-                    Current humidity : {humidity}
+                <View style={styles.circles}>
+                    <Progress.Circle 
+                        color={'orange'}
+                        progress={temparature/100}
+                        size={200}
+                        borderWidth={2}
+                        thickness={10}
+                        showsText={true}
+                        formatText={(progress) => `${temparature}` + '°C'}
+                        style={styles.progress}
+                    />
+                </View>
+                
+                <Text style={styles.text}>
+                    Humidity
                 </Text>
-                <Text>
-                    Current rain level : {rainLevel}
+
+                <View style={styles.circles}>
+                      <Progress.Circle
+                        progress={humidity/100}
+                        size={200}
+                        borderWidth={2}
+                        thickness={10}
+                        showsText={true}
+                        formatText={(progress) => `${humidity}` + '%'}
+                        style={styles.progress}
+                      />
+                </View>
+
+                <Text style={styles.text}>
+                    Rain level : {rainLevel}
                 </Text>
+
             </View>
             }
             <Button
@@ -92,3 +125,17 @@ export default function SensorsScreen({navigation}){
         </BackGroundNormal>
     );    
 }
+
+const styles = StyleSheet.create({
+    text: {
+        top: 20,
+       fontSize: 30,
+       fontWeight: "700",
+       fontFamily: "Roboto"
+    },
+    circles: {
+        top: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+    }
+});

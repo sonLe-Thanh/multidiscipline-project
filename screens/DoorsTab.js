@@ -21,8 +21,8 @@ export default function DoorsTab({navigation}){
 
     const receivedDataFromFeed = (_aiokey, _topic, _mode) => {
         var url = apiHeader+_topic+"/data/"+_mode;
-        console.log(url)
-        console.log(_aiokey)
+        // console.log(url)
+        // console.log(_aiokey)
         fetch(url, {
             method: "GET",
             headers: {
@@ -32,7 +32,8 @@ export default function DoorsTab({navigation}){
         .then((json)=>{
             var receivedObj = JSON.parse(json.value)
             var receivedData = receivedObj.data;
-            if (receivedData === "1"){
+            // console.log(receivedData)
+            if (receivedData === 1){
                 setDoorStatus("Door closed!");
                 setDoorAction("Open the door");
             }
@@ -52,15 +53,15 @@ export default function DoorsTab({navigation}){
         })
         .then((response)=>response.json())
         .then((json)=>{
-            console.log(json)
+            // console.log(json)
             setListOutputDevice(json)
-            console.log(listOutputDevice)
+            // console.log(listOutputDevice)
         })
         .catch((error)=>{
             console.log(error)
         })
         .finally(()=>{
-            console.log(listOutputDevice)
+            // console.log(listOutputDevice)
             for (var i =0; i<listOutputDevice.length;i++){
                 receivedDataFromFeed(listOutputDevice[i].aio_key, listOutputDevice[i].topic_name, "last")
             }
@@ -119,11 +120,11 @@ export default function DoorsTab({navigation}){
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal style={{marginTop:50}}>
-            <ScrollView style={{width:"100%"}}>
-                <Text style={{marginTop:20}}>DOOR AND WINDOW</Text>
+                <Header>DOOR AND WINDOW</Header>
                 {listOutputDevice.map((value, index)=>{
                     return (
                         <View key={index}>
+                            
                             <Text style={styles.status} >{doorStatus}</Text>
                             <Button
                                 mode="contained"
@@ -141,7 +142,7 @@ export default function DoorsTab({navigation}){
                 >
                     Refresh
                 </Button>
-            </ScrollView>
+            
         </BackGroundNormal>
         // </TouchableWithoutFeedback>
     );    
@@ -149,8 +150,8 @@ export default function DoorsTab({navigation}){
 
 const styles = StyleSheet.create({
     status:{
-        fontSize: 20,
-        color: "#ff6666",
+        fontSize: 30,
+        color: "#1612e3",
         fontWeight: 'bold',
         paddingVertical: 12,
         textAlign: 'center',

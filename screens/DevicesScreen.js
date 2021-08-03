@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, StyleSheet, ScrollView  } from 'react-native';
+import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, StyleSheet, ScrollView, Image  } from 'react-native';
 import {Card} from 'react-native-elements'
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -24,35 +24,35 @@ export default function DevicesScreen({navigation}){
             console.log(error);
         })
         .finally(()=>{
-            console.log(devices)
-            console.log(global.uid)
+            // console.log(devices)
+            // console.log(global.uid)
             setIsLoading(false)
         })
     },[])
-    console.log(global.uid);
+    // console.log(global.uid);
     return (
         <BackGroundNormal>
             <Header>YOUR DEVICE</Header>
             {isLoading? 
             <ActivityIndicator size="large" color="#0000ff"/>
             :
-                <View style={{flex: 1, marginTop: 50, justifyContent:'center', width:'100%'}}>
-                    
+                <View style={{marginTop: 50, justifyContent:'center', width:'100%',}}>
                     <FlatList
-                    style={{flex: 1}}
+                    style={{}}
                     data ={devices}
                     keyExtractor={(item, index)=>index}
                     renderItem={({item})=>{
                         return (
-                            <View style={{flex: 1, flexDirection: 'row', marginBottom: 3}}>
-                                <View style={{flex: 1, justifyContent:'center', marginLeft:3}}>
-                                    <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
-                                        {item.id}
-                                    </Text>
-                                    <Text style={{fontSize: 16, color:'red'}}>
+                            <View style={{ flexDirection: 'row', marginBottom: 3}}>
+                                <View style={{justifyContent:'center', marginLeft:3}}>
+                                    <Image
+                                        style={deviceCardStyle.tinyLogo}
+                                        source={require('../assets/images/device.png')}
+                                    />
+                                    <Text style={{fontSize: 30, color:'red'}}>
                                         {item.type}
                                     </Text>
-                                    <Text>
+                                    <Text style={{fontSize: 30, color:"#000000"}} >
                                         {item.topic_name}
                                     </Text>
                                 </View>
@@ -81,3 +81,14 @@ const styles = StyleSheet.create({
         padding: 10,
     }
 });
+
+
+const deviceCardStyle = StyleSheet.create({
+
+    tinyLogo: {
+      marginTop: 10,
+      marginBottom: 10,
+      width: 50,
+      height: 50,
+    },
+  })

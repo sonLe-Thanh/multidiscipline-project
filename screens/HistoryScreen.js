@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableOpacity, Keyboard, Text, View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { Alert, TouchableOpacity, Keyboard, Text, View, StyleSheet, Dimensions, ActivityIndicator, Image } from 'react-native';
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -123,10 +123,10 @@ export default function HistoryScreen({navigation}){
         .finally(()=>{
             console.log(listInputDevice)
             for (var i =0;i<listInputDevice.length;i++){
-                console.log(listInputDevice[i].topic_name);
+                // console.log(listInputDevice[i].topic_name);
                 getTimeSerieDate(_start_date, _end_date,listInputDevice[i].aio_key, listInputDevice[i].topic_name,24);
             }
-            setIsLoading(false);
+            
             if (tempData.length>0){
                 var minT = tempData[0];
                 var maxT = tempData[0];
@@ -183,6 +183,8 @@ export default function HistoryScreen({navigation}){
                 setMaxRain(maxR+"*C");
                 setMinRain(minR+"*C");
             }
+
+            setIsLoading(false);
         })
     }
     return (
@@ -193,9 +195,6 @@ export default function HistoryScreen({navigation}){
                     <Text style = {styles.text}>Choose a date</Text>
                 </TouchableOpacity>
             </View>
-            <Header>
-                   PAST DATA
-            </Header>
             {show && (
                 <DateTimePicker
                     testID="dateTimePicker"
@@ -210,13 +209,18 @@ export default function HistoryScreen({navigation}){
             isLoading
             ?<View/>
             :<View>
-                <Text>
+                <Image
+                    style={deviceCardStyle.tinyLogo}
+                    source={require('../assets/images/tempIcon_Noti.png')}
+                />
+
+                <Text style={{marginTop: 5, fontSize: 20}}>
                     Maximum temperature: {maxTemp}
                 </Text>
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20}}>
                     Minimum temperature: {minTemp}
                 </Text>
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20, fontWeight: 'bold'}}>
                     Average temperature: {avgTemp}
                 </Text>
                 {/* <View
@@ -224,14 +228,18 @@ export default function HistoryScreen({navigation}){
                 >
                 </View> */}
                 
+                <Image
+                    style={deviceCardStyle.tinyLogo}
+                    source={require('../assets/images/humidity.png')}
+                />
                
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20}}>
                     Maximum humidity: {maxHumid}
                 </Text>
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20}}>
                     Minimum humidity: {minHumid}
                 </Text>
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20, fontWeight: 'bold'}}>
                     Average humidity: {avgHumid}
                 </Text>
                 {/* <View
@@ -239,14 +247,19 @@ export default function HistoryScreen({navigation}){
                 >
                 </View> */}
 
+                <Image
+                    style={deviceCardStyle.tinyLogo}
+                    source={require('../assets/images/rain_level.png')}
+                />
+
                 
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20}}>
                     Maximum rain level: {maxRain}
                 </Text>
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20}}>
                     Minimum rain level: {minRain}
                 </Text>
-                <Text>
+                <Text style={{marginTop: 5, fontSize: 20, fontWeight: 'bold'}}>
                     Average rain level: {avgRain}
                 </Text>
                 
@@ -272,3 +285,13 @@ const styles = StyleSheet.create({
         fontSize:20
     }
 })
+
+const deviceCardStyle = StyleSheet.create({
+
+    tinyLogo: {
+      marginTop: 10,
+      marginBottom: 10,
+      width: 50,
+      height: 50,
+    },
+  })

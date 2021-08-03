@@ -16,7 +16,7 @@ export default function normalBackground({ children }){
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: "#586273",
+        backgroundColor: "white",
     },
     container:{
         flex: 1,
