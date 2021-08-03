@@ -1,10 +1,6 @@
 import React from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
-import Header from '../components/Header';
-import Button from '../components/Button';
-import { Alert, TouchableOpacity, Keyboard, Text, StyleSheet, ImageBackground, Image } from 'react-native';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 
 export default function HomeMainScreen({navigation}){
     return (
@@ -59,7 +55,7 @@ export default function HomeMainScreen({navigation}){
 const styles = StyleSheet.create({
     sensorsButton:{
         // backgroundColor: 'white',
-        marginTop: 20,
+        marginTop: 100,
         width: 80,
         height: 80,
         justifyContent: "center",
@@ -70,7 +66,7 @@ const styles = StyleSheet.create({
     },
     doorsButton:{
         // backgroundColor: 'white',
-        marginTop: 20,
+        marginTop: 100,
         width: 80,
         height: 80,
         justifyContent: "center",
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
     },
     historyButton:{
         // backgroundColor: 'white',
-        marginTop: 20,
+        marginTop: 100,
         width: 80,
         height: 80,
         justifyContent: "center",
@@ -91,7 +87,7 @@ const styles = StyleSheet.create({
     },
     devicesButton:{
         // backgroundColor: 'white',
-        marginTop: 20,
+        marginTop: 100,
         width: 80,
         height: 80,
         justifyContent: "center",
@@ -102,7 +98,7 @@ const styles = StyleSheet.create({
     },
     addDevicesButton:{
         // backgroundColor: 'white',
-        marginTop: 20,
+        marginTop: 100,
         width: 80,
         height: 80,
         justifyContent: "center",
