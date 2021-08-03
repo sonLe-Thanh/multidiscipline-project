@@ -12,6 +12,8 @@ import {passwordValidator} from '../util/passwordValidator';
 import {nameValidator} from '../util/nameValidator';
 import {getUid, LoginScreen} from './LoginScreen';
 
+import {BackendAddress} from '../constants/BackendAddress'
+
 export default function ChangePasswordScreen({navigation}){
     const [currPass, setCurrPass] = useState({value: '', error: ''});
     const [newPass0, setNewPass0] = useState({value: '', error: ''});
@@ -27,7 +29,7 @@ export default function ChangePasswordScreen({navigation}){
 
     const validatePassword = () => {
         console.log(global.uid);
-        fetch(`http://35.197.134.82:8000/api/users/${global.uid}/`, {
+        fetch(`${BackendAddress}/api/users/${global.uid}/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

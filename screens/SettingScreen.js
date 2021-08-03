@@ -6,6 +6,7 @@ import { Alert, TouchableWithoutFeedback, Keyboard, FlatList  } from 'react-nati
 import TextInput from '../components/TextInput';
 import {theme} from '../core/theme';
 import { onChange } from 'react-native-reanimated';
+import {BackendAddress} from '../constants/BackendAddress'
 
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -16,7 +17,7 @@ export default function SettingScreen({navigation}){
     const changePhoneName = async (toChangeName, toChangePhone) => {
         console.log(global.email);
         console.log(global.password);
-        // return await fetch("http://192.168.1.5:8000/api/auth/login/",{
+        // return await fetch(`${BackendAddress}/api/auth/login/`,{
         //     method: "POST",
         //     headers: {
         //         // 'Accept': 'application/json, text/plain, */*', 
@@ -28,7 +29,7 @@ export default function SettingScreen({navigation}){
         //     })
         // }).then((response) => response.json())
         // .then((json)=>{
-        //     return fetch("http://192.168.1.5:8000/api/users/"+global.uid+"/",{
+        //     return fetch(`${BackendAddress}/api/users/`+global.uid+`/`,{
         //         method: "PUT",
         //         headers: {
         //             'Accept': 'application/json, text/plain, */*', 
@@ -64,7 +65,7 @@ export default function SettingScreen({navigation}){
         //         {cancelable: false}
         //     );
         // })
-        return await fetch("http://35.197.134.82:8000/api/users/"+global.uid+"/",{
+        return await fetch(`${BackendAddress}/api/users/`+global.uid+`/`,{
                 method: "PUT",
                 headers: {
                     'Accept': 'application/json, text/plain, */*', 

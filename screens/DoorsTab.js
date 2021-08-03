@@ -8,6 +8,7 @@ import { Alert, TouchableWithoutFeedback, Keyboard, Text, View  } from 'react-na
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScrollView } from 'react-native';
+import {BackendAddress} from '../constants/BackendAddress'
 
 // const DoorsStack = createMaterialTopTabNavigator();
 
@@ -47,7 +48,7 @@ export default function DoorsTab({navigation}){
     };
 
     const getOutputDevice = () =>{
-        fetch("http://35.197.134.82:8000/api/devices/?user="+global.uid+"&type=O",{
+        fetch(`${BackendAddress}/api/devices/?user=`+global.uid+`&type=O`,{
             method: "GET"
         })
         .then((response)=>response.json())

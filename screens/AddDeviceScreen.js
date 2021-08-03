@@ -8,6 +8,8 @@ import { Alert, TouchableWithoutFeedback, Keyboard, Text, TouchableOpacity, Imag
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import SelectDropdown from 'react-native-select-dropdown'
 
+import {BackendAddress} from '../constants/BackendAddress'
+
 export default function AddDeviceScreen({navigation}){
     const [topic, setTopic] = useState({value: ''});
     const [aio_key, setAioKey] = useState({value: ''});
@@ -16,7 +18,7 @@ export default function AddDeviceScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const onAddDevicePress = () =>{
-        fetch("http://35.197.134.82:8000/api/devices/", {
+        fetch(`${BackendAddress}/api/devices/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
