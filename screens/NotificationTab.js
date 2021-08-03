@@ -224,7 +224,7 @@ export default function App() {
   const responseListener = useRef();
 
   const fetchAllNotifi = () =>{
-    fetch("http://192.168.1.9:8000/api/notifications/?user="+global.uid,{
+    fetch("http://35.197.134.82:8000/api/notifications/?user="+global.uid,{
       metthod: "GET",
     })
     .then((response)=>response.json())

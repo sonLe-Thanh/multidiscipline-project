@@ -16,7 +16,7 @@ export default function AddDeviceScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const onAddDevicePress = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/", {
+        fetch("http://35.197.134.82:8000/api/devices/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

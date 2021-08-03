@@ -19,7 +19,7 @@ export default function LoginScreen({navigation}){
         // navigation.navigate('HomeScreen');
         // return;
 
-        return await fetch("http://192.168.1.9:8000/api/auth/login/",{
+        return await fetch("http://35.197.134.82:8000/api/auth/login/",{
             method: "POST",
             headers: {
                 // 'Accept': 'application/json, text/plain, */*', 

@@ -42,7 +42,7 @@ export default function SensorsScreen({navigation}){
     };
 
     const getInputDevice = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
+        fetch("http://35.197.134.82:8000/api/devices/?user="+global.uid+"&type=I",{
             method: "GET"
         })
         .then((response)=>response.json())

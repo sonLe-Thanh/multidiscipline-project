@@ -14,7 +14,7 @@ export default function DevicesScreen({navigation}){
     const [isLoading, setIsLoading] = useState(true);
     
     useEffect(()=>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid,{
+        fetch("http://35.197.134.82:8000/api/devices/?user="+global.uid,{
             method: "GET",
         }).then((response)=>response.json())
         .then((json)=>{

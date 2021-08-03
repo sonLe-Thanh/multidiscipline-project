@@ -45,7 +45,7 @@ export default function DoorScreen({navigation}){
     };
 
     const getOutputDevice = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=O",{
+        fetch("http://35.197.134.82:8000/api/devices/?user="+global.uid+"&type=O",{
             method: "GET"
         })
         .then((response)=>response.json())
