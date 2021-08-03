@@ -7,7 +7,6 @@ import {
   LoginScreen,
   RegisterScreen,
   HomeScreen,
-  ShowScreen,
 } from './screens';
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen.js";
 // import ChangePasswordScreen from "./screens/ChangePasswordScreen.js";
@@ -25,7 +24,6 @@ export default function App() {
           <Stack.Screen name="LoginScreen" component ={LoginScreen}/>
           <Stack.Screen name="RegisterScreen" component ={RegisterScreen}/>
           <Stack.Screen name="HomeScreen" component ={HomeScreen}/>
-          <Stack.Screen name="ShowScreen" component ={ShowScreen}/>
           <Stack.Screen name="ForgotPasswordScreen" component ={ForgotPasswordScreen}/>
           {/* <Stack.Screen name="ChangePasswordScreen" component ={ChangePasswordScreen}/> */}
         </Stack.Navigator>
