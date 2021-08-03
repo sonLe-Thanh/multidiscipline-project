@@ -8,16 +8,25 @@ import { Alert, TouchableWithoutFeedback, Keyboard, Text, View  } from 'react-na
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScrollView } from 'react-native';
+import { theme } from '../core/theme'
 
 // const DoorsStack = createMaterialTopTabNavigator();
 
 export default function DoorsTab({navigation}){
     
     const apiHeader = "https://io.adafruit.com/api/v2/";
-    const [doorStatus, setDoorStatus] = useState("Fetching");
-    const [doorAction, setDoorAction] = useState("Fetching");
+    const [doorStatus, setDoorStatus] = useState("Open");
+    const [doorAction, setDoorAction] = useState("Close the door");
     const [isLoadingDevices, setIsLoadingDevices] = useState(true);
-    const [listOutputDevice, setListOutputDevice] = useState([]);
+    const [listOutputDevice, setListOutputDevice] = useState([
+        {
+            "id":1,
+            "user":1,
+            "topic_name": "LeThanh/feeds/buzzer",
+            "aio_key": "aio_asfsadfsfsd",
+            "type": "Rain sensor"
+        }
+    ]);
 
     const receivedDataFromFeed = (_aiokey, _topic, _mode) => {
         var url = apiHeader+_topic+"/data/"+_mode;
@@ -113,31 +122,34 @@ export default function DoorsTab({navigation}){
             console.error(error);
         })
     }
-    useEffect(()=>{
-        getOutputDevice();
-    },[])
+    // useEffect(()=>{
+    //     getOutputDevice();
+    // },[])
     return (
-        // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
+        // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <BackGroundNormal style={{marginTop:50}}>
             <ScrollView style={{width:"100%"}}>
-                <Text style={{marginTop:20}}>DOOR AND WINDOW</Text>
+                <Text style={{marginTop:20, fontSize: 30, fontSize: 30,
+                  color: theme.colors.primary,
+                  textAlign: 'center',
+                  fontWeight: 'bold'}}>DOOR AND WINDOW</Text>
                 {listOutputDevice.map((value, index)=>{
                     return (
                         <View key={index}>
                             <Text style={styles.status} >{doorStatus}</Text>
                             <Button
                                 mode="contained"
-                                onPress={()=>changeDoorStatus(value.aio_key, value.topic_name, doorAction)}
+                                // onPress={()=>changeDoorStatus(value.aio_key, value.topic_name, doorAction)}
                             >
                             {doorAction}
                             </Button>
                         </View>
-                        
+
                     );
                 })}
                 <Button
                 mode="contained"
-                onPress={()=>getOutputDevice()}
+                // onPress={()=>getOutputDevice()}
                 >
                     Refresh
                 </Button>

@@ -38,7 +38,7 @@
 //     }
 
 //     return (
-//         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
+//         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 //         //BackGroundNormal
 //         <ScrollView style = {{marginTop:20}}>
 //             {/* <StatusBar hidden /> */}
@@ -69,7 +69,7 @@
 //             })}
 //         </ScrollView>
 //         // </TouchableWithoutFeedback>
-//     );    
+//     );
 // }
 
 
@@ -209,7 +209,7 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Platform, ActivityIndicator } from 'react-native';
+import { Text, View, Platform, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
@@ -219,12 +219,23 @@ export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [listNotifi, setListNotifi] = useState([]);
+  const [listNotifi, setListNotifi] = useState([{
+    "id":1,
+    "title": "Hello",
+    "content": "1234",
+    "time": "15:00"
+    },
+    {
+    "id":2,
+    "title": "Hi",
+    "content": "5678",
+    "time": "16:00"
+    }]);
   const notificationListener = useRef();
   const responseListener = useRef();
 
   const fetchAllNotifi = () =>{
-    fetch("http://192.168.1.9:8000/api/notifications/?user="+global.uid,{
+    fetch("http://35.197.134.82:8000/api/notifications/?user="+global.uid,{
       metthod: "GET",
     })
     .then((response)=>response.json())
@@ -273,17 +284,23 @@ export default function App() {
           keyExtractor={(item, index)=>index}
           renderItem={({item})=>{
             return (
-              <View style={{flex: 1, flexDirection: 'row', marginBottom: 3}}>
-                <View style={{flex: 1, justifyContent:'center', marginLeft:3}}>
-                  <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
-                    {item.title}
-                  </Text>
-                  <Text style={{fontSize: 16, color:'red'}}>
-                    {item.time}
-                  </Text>
-                  <Text>
-                    {item.content}
-                  </Text>
+              <View style={{marginTop:20,marginLeft:20,marginBottom:15,flexDirection:'row'}}>
+                <View style={{flexDirection:'column',marginLeft:20}}>
+                    <Image
+                              style={deviceCardStyle.tinyLogo}
+                              source={require('../assets/images/noti.png')}
+                    />
+                    <Text
+                      style={{marginTop: 5, fontSize: 20}}>Title: {item.title}
+                    </Text>
+                    <Text style={{marginTop: 5, fontSize: 20, color:'red'}}>Time:
+                      {item.time}
+                    </Text>
+
+                    <Text style={{marginTop: 5, fontSize: 20}}>Content:
+                      {item.content}
+                    </Text>
+
                 </View>
               </View>
             )
@@ -336,3 +353,11 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+const deviceCardStyle = StyleSheet.create({
+
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+})

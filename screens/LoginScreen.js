@@ -16,10 +16,10 @@ export default function LoginScreen({navigation}){
     const [password, setPassword] = useState({value: '', error: ''});
     
     const login = async (input_email, input_password) =>{
-        // navigation.navigate('HomeScreen');
-        // return;
+         navigation.navigate('HomeScreen');
+         return;
 
-        return await fetch("http://192.168.1.9:8000/api/auth/login/",{
+        return await fetch("http://35.197.134.82:8000/api/auth/login/",{
             method: "POST",
             headers: {
                 // 'Accept': 'application/json, text/plain, */*', 

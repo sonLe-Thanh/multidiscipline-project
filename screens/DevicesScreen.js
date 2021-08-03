@@ -10,11 +10,26 @@ import { View } from '../components/Themed';
 import { FlatList } from 'react-native-gesture-handler';
 
 export default function DevicesScreen({navigation}){
-    const [devices, setDevices] = useState([]);
+    const [devices, setDevices] = useState([
+    {
+            "id":1,
+            "user":1,
+            "topic_name": "LeThanh/feeds/buzzer",
+            "aio_key": "aio_asfsadfsfsd",
+            "type": "Rain sensor"
+        },
+        {
+             "id":2,
+            "user":1,
+            "topic_name": "LeThanh/feeds/dht11-humidity",
+            "aio_key": "aio_asfsadfsfsd",
+            "type": "DHT11"
+        }
+    ]);
     const [isLoading, setIsLoading] = useState(true);
     
     useEffect(()=>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid,{
+        fetch("http://35.197.134.82:8000/api/devices/?user="+global.uid,{
             method: "GET",
         }).then((response)=>response.json())
         .then((json)=>{
@@ -36,7 +51,7 @@ export default function DevicesScreen({navigation}){
             {isLoading? 
             <ActivityIndicator size="large" color="#0000ff"/>
             :
-                <View style={{flex: 1, marginTop: 50, justifyContent:'center', width:'100%'}}>
+                <View style={{flex: 1, marginTop: 60, justifyContent:'center', width:'100%'}}>
                     
                     <FlatList
                     style={{flex: 1}}
@@ -44,15 +59,15 @@ export default function DevicesScreen({navigation}){
                     keyExtractor={(item, index)=>index}
                     renderItem={({item})=>{
                         return (
-                            <View style={{flex: 1, flexDirection: 'row', marginBottom: 3}}>
+                            <View style={{marginTop:5, flex: 1, flexDirection: 'row', marginBottom: 3}}>
                                 <View style={{flex: 1, justifyContent:'center', marginLeft:3}}>
-                                    <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
+                                    <Text style={{fontSize: 30, color: 'green', marginBottom: 15}}>
                                         {item.id}
                                     </Text>
-                                    <Text style={{fontSize: 16, color:'red'}}>
+                                    <Text style={{fontSize: 30, color:'red'}}>
                                         {item.type}
                                     </Text>
-                                    <Text>
+                                    <Text style={{fontSize: 15}}>
                                         {item.topic_name}
                                     </Text>
                                 </View>

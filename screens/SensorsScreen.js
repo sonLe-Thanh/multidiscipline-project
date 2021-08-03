@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, View  } from 'react-native';
+import { StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, View  } from 'react-native';
+import * as Progress from 'react-native-progress';
 
 
 export default function SensorsScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
-    const [temparature, setTemparature] = useState('--°C');
-    const [humidity, setHumidity] = useState("--%");
-    const [rainLevel, setRainLevel] = useState("--mm");
-
+//    const [temparature, setTemparature] = useState('--°C');
+//    const [humidity, setHumidity] = useState("--%");
+//    const [rainLevel, setRainLevel] = useState("--mm");
+    const temparature = '38°C'
+    const humidity = '50%'
+    const rainLevel = '200mm'
     const [listInputDevice, setListInputDevice] = useState([]);
-    const [isLoadingDevices, setIsLoadingDevices] = useState(true);
+    const [isLoadingDevices, setIsLoadingDevices] = useState(false);
 
     const receivedDataFromFeed = (_aiokey, _topic, _mode) => {
         var url = apiHeader+_topic+"/data/"+_mode;
@@ -42,7 +45,7 @@ export default function SensorsScreen({navigation}){
     };
 
     const getInputDevice = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
+        fetch("http://35.197.134.82:8000/api/devices/?user="+global.uid+"&type=I",{
             method: "GET"
         })
         .then((response)=>response.json())
@@ -61,9 +64,9 @@ export default function SensorsScreen({navigation}){
         })
     }
 
-    useEffect(()=>{
-        getInputDevice();
-    },[])
+//    useEffect(()=>{
+//        getInputDevice();
+//    },[])
     
     return (
         <BackGroundNormal>
@@ -71,24 +74,73 @@ export default function SensorsScreen({navigation}){
             {isLoadingDevices?
             <ActivityIndicator size="large" color="#0000ff"/>
             :
-            <View>
-                <Text>
-                    Current temparature: {temparature}
+            <View style={{flex: 1,
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignItems: 'center',}}>
+                <Text style={styles.text}>
+                    Temparature:
                 </Text>
-                <Text>
-                    Current humidity : {humidity}
+
+                <View style={styles.circles}>
+                      <Progress.Circle
+                      color={'orange'}
+                      progress={0.39}
+                      size={200}
+                      borderWidth={2}
+                      thickness={10}
+                      showsText={true}
+                      formatText={(progress) => `${progress*100}` + '°C'}
+                        style={styles.progress}
+        //                    progress={this.state.progress}
+        //                    indeterminate={this.state.indeterminate}
+                      />
+                </View>
+
+                <Text style={styles.text}>
+                    Humidity:
                 </Text>
-                <Text>
-                    Current rain level : {rainLevel}
+
+                <View style={styles.circles}>
+                      <Progress.Circle
+                      progress={0.5}
+                      size={200}
+                      borderWidth={2}
+                      thickness={10}
+                      showsText={true}
+                      formatText={(progress) => `${progress*100}` + '%'}
+                        style={styles.progress}
+        //                    progress={this.state.progress}
+        //                    indeterminate={this.state.indeterminate}
+                      />
+                </View>
+
+                <Text style={styles.text}>
+                    Rain level : 200mm
                 </Text>
             </View>
             }
             <Button
                 mode="contained"
-                onPress={()=>getInputDevice()}
+//                onPress={()=>getInputDevice()}
             >
                 Refresh
             </Button>
         </BackGroundNormal>
-    );    
+    );
+
 }
+
+const styles = StyleSheet.create({
+    text: {
+        top: 20,
+       fontSize: 30,
+       fontWeight: "700",
+       fontFamily: "Roboto"
+    },
+    circles: {
+        top: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+});

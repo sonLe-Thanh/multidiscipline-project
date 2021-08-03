@@ -29,7 +29,7 @@ export default function RegisterScreen({navigation}){
             return
         }
 
-        fetch("http://192.168.1.9:8000/api/users/", {
+        fetch("http://35.197.134.82:8000/api/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
