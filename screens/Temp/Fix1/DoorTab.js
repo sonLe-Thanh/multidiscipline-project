@@ -9,19 +9,23 @@ import { Alert, TouchableWithoutFeedback, Keyboard, Text, View  } from 'react-na
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScrollView } from 'react-native';
 
-export default function DoorScreen({navigation}){
-    const [listOutputDevice, setListOutputDevice] = useState([{
-        "id":1,
-        "user":1,
-        "topic_name": "LeThanh/feeds/buzzer",
-        "aio_key": "aio_asfsadfsfsd",
-        "type": "Rain sensor"
-    }]);
-    const apiHeader = "https://io.adafruit.com/api/v2/";
-    const [doorStatus, setDoorStatus] = useState("Closing");
-    const [doorAction, setDoorAction] = useState("Open the door");
-    const [isLoadingDevices, setIsLoadingDevices] = useState(false);
+// const DoorsStack = createMaterialTopTabNavigator();
 
+export default function DoorsTab({navigation}){
+    
+    const apiHeader = "https://io.adafruit.com/api/v2/";
+    const [doorStatus, setDoorStatus] = useState("Open");
+    const [doorAction, setDoorAction] = useState("Close the door");
+    const [isLoadingDevices, setIsLoadingDevices] = useState(true);
+    const [listOutputDevice, setListOutputDevice] = useState([
+        {
+            "id":1,
+            "user":1,
+            "topic_name": "LeThanh/feeds/buzzer",
+            "aio_key": "aio_asfsadfsfsd",
+            "type": "Rain sensor"
+        }
+    ]);
 
     const receivedDataFromFeed = (_aiokey, _topic, _mode) => {
         var url = apiHeader+_topic+"/data/"+_mode;
@@ -56,7 +60,9 @@ export default function DoorScreen({navigation}){
         })
         .then((response)=>response.json())
         .then((json)=>{
+            console.log(json)
             setListOutputDevice(json)
+            console.log(listOutputDevice)
         })
         .catch((error)=>{
             console.log(error)
@@ -129,6 +135,7 @@ export default function DoorScreen({navigation}){
                             <Text style={styles.status} >{doorStatus}</Text>
                             <Button
                                 mode="contained"
+                                // onPress={()=>changeDoorStatus(value.aio_key, value.topic_name, doorAction)}
                             >
                             {doorAction}
                             </Button>
@@ -136,6 +143,12 @@ export default function DoorScreen({navigation}){
                         
                     );
                 })}
+                <Button
+                mode="contained"
+                // onPress={()=>getOutputDevice()}
+                >
+                    Refresh
+                </Button>
             </ScrollView>
         </BackGroundNormal>
         // </TouchableWithoutFeedback>

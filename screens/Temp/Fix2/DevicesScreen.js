@@ -11,20 +11,20 @@ import { FlatList } from 'react-native-gesture-handler';
 
 export default function DevicesScreen({navigation}){
     const [devices, setDevices] = useState([
-    {
-        "id":1,
-        "user":1,
-        "topic_name": "LeThanh/feeds/buzzer",
-        "aio_key": "aio_asfsadfsfsd",
-        "type": "Rain sensor"
-    },
-    {
-         "id":2,
-        "user":1,
-        "topic_name": "LeThanh/feeds/dht11-humidity",
-        "aio_key": "aio_asfsadfsfsd",
-        "type": "DHT11"
-    }
+        {
+            "id":1,
+            "user":1,
+            "topic_name": "LeThanh/feeds/buzzer",
+            "aio_key": "aio_asfsadfsfsd",
+            "type": "Rain sensor"
+        },
+        {
+             "id":2,
+            "user":1,
+            "topic_name": "LeThanh/feeds/dht11-humidity",
+            "aio_key": "aio_asfsadfsfsd",
+            "type": "DHT11"
+        }
     ]);
     const [isLoading, setIsLoading] = useState(false);
     
@@ -39,8 +39,8 @@ export default function DevicesScreen({navigation}){
     //         console.log(error);
     //     })
     //     .finally(()=>{
-    //         // console.log(devices)
-    //         // console.log(global.uid)
+    //         console.log(devices)
+    //         console.log(global.uid)
     //         setIsLoading(false)
     //     })
     // },[])

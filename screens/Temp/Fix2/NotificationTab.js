@@ -218,22 +218,21 @@ import { FlatList } from 'react-native-gesture-handler';
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [listNotifi, setListNotifi] = useState([
-  {
-    "id":1,
-    "title": "Hello",
-    "content": "1234",
-    "time": "15:00"
-  },
-  {
-    "id":2,
-    "title": "Hi",
-    "content": "5678",
-    "time": "16:00"
-  }
-    ]);
-  }
+    {
+      "id":1,
+      "title": "Hello",
+      "content": "1234",
+      "time": "15:00"
+    },
+    {
+      "id":2,
+      "title": "Hi",
+      "content": "5678",
+      "time": "16:00"
+    }
+  ]);
   const notificationListener = useRef();
   const responseListener = useRef();
 
