@@ -43,6 +43,14 @@ export default function RegisterScreen({navigation}){
         })
         .then((resp) => resp.json())
         .then(() => {
+            Alert.alert(
+                "Success!",
+                "Register successed",
+                [
+                    {text: 'OK', onPress: () => {}}
+                ],
+                {cancelable: false}
+            );
             navigation.navigate('LoginScreen');
         })
         .catch(error => { 

@@ -62,7 +62,7 @@ export default function App() {
         <FlatList
           style={{}}
           data = {listNotifi}
-          keyExtractor={(item, index)=>index}
+          keyExtractor={(item, index)=>index.toString()}
           renderItem={({item})=>{
             return (
               <View style={{flexDirection: 'row', marginBottom: 3}}>
@@ -71,13 +71,13 @@ export default function App() {
                     style={deviceCardStyle.tinyLogo}
                     source={require('../assets/images/noti.png')}
                   />
-                  <Text style={{fontSize: 30, color: 'green', marginBottom: 15}}>
+                  <Text style={{fontSize: 30, color: 'green'}}>
                     {item.title}
                   </Text>
                   <Text style={{fontSize: 15, color:'red'}}>
                     {item.time.split('T')[0]}
                   </Text>
-                  <Text style={{fontSize: 30, color: 'green', marginBottom: 15}}>
+                  <Text style={{fontSize: 30, color: 'black', marginBottom: 15}}>
                     {item.content}
                   </Text>
                 </View>
@@ -93,6 +93,12 @@ export default function App() {
             )
           }}
         />
+        <Button
+                mode="contained"
+                onPress={()=>fetchAllNotifi()}
+            >
+                Refresh
+            </Button>
       </View>
       }
     </BackGroundNormal>

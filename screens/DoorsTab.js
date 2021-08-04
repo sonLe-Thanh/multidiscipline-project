@@ -72,7 +72,7 @@ export default function DoorsTab({navigation}){
     function changeDoorStatus(_aiokey, topic, action){
         //0 to close the door, 1 to open the door
         var url = apiHeader + topic+ "/data";
-        console.log(url);
+        // console.log(url);
         var sendData;
         if (action === "Close the door"){
             sendData = "1";
@@ -80,7 +80,7 @@ export default function DoorsTab({navigation}){
         else if (action === "Open the door"){
             sendData = "0";
         }
-        console.log(sendData);
+        // console.log(sendData);
         return fetch(url, {
             method: "POST",
             headers: {
@@ -89,16 +89,16 @@ export default function DoorsTab({navigation}){
             },
             body: JSON.stringify({
                 value: JSON.stringify({
-                    id:"8",
-                    name:"MAGNETIC",
+                    id:"11",
+                    name:"RELAY",
                     data: sendData,
                     unit:"",
                 }),
             })
         }).then((response)=>response.json())
         .then((json)=>{
-            console.log("Sent data to topic "+topic.value+" with value: "+sendData.value);
-            console.log("Result: ",json)
+            // console.log("Sent data to topic "+topic.value+" with value: "+sendData.value);
+            // console.log("Result: ",json)
             var receivedObj = JSON.parse(json.value)
             var receivedData = receivedObj.data;
             if (receivedData === "1"){

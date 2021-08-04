@@ -40,7 +40,7 @@ export default function DevicesScreen({navigation}){
                     <FlatList
                     style={{}}
                     data ={devices}
-                    keyExtractor={(item, index)=>index}
+                    keyExtractor={(item, index)=>index.toString()}
                     renderItem={({item})=>{
                         return (
                             <View style={{ flexDirection: 'row', marginBottom: 3}}>

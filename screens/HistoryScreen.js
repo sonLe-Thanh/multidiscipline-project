@@ -22,6 +22,7 @@ export default function HistoryScreen({navigation}){
     const [appearList, setAppearList] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
+    const [isGettingData, setIsGettingData] = useState(true);
 
     const [avgTemp, setAvgTemp] = useState('Not available');
     const [maxTemp, setMaxTemp] = useState('Not available');
@@ -68,8 +69,6 @@ export default function HistoryScreen({navigation}){
 
     const getTimeSerieDate = (_start_date, _end_date, _aio_key, _topic_name, limit) =>{
         var url = apiHeader+_topic_name+"/data?start_date="+_start_date+"&end_date="+_end_date+"&limit="+limit;
-        // console.log(url)
-        // console.log(_aio_key)
         return fetch(url, {
             method: "GET",
             headers:{
@@ -108,6 +107,12 @@ export default function HistoryScreen({navigation}){
                 }
             }
         })
+        .catch((error)=>{
+            console.log(error);
+        })
+        .finally(()=>{
+            setIsGettingData(false);
+        })
     }
     const getInputDevice = (_start_date, _end_date) =>{
         fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
@@ -121,70 +126,75 @@ export default function HistoryScreen({navigation}){
             console.log(error)
         })
         .finally(()=>{
-            console.log(listInputDevice)
+            // console.log(listInputDevice)
             for (var i =0;i<listInputDevice.length;i++){
                 // console.log(listInputDevice[i].topic_name);
                 getTimeSerieDate(_start_date, _end_date,listInputDevice[i].aio_key, listInputDevice[i].topic_name,24);
             }
-            
-            if (tempData.length>0){
-                var minT = tempData[0];
-                var maxT = tempData[0];
-                var avgT = 0;
-                for (var i=0; i<tempData.length;i++){
-                    avgT +=tempData[i];
-                    if (tempData[i]>maxT){
-                        maxT = tempData[i];
+            if (!isGettingData){
+                // console.log("Hello")
+                if (tempData.length>0){
+                    var minT = tempData[0];
+                    var maxT = tempData[0];
+                    var avgT = 0;
+                    for (var i=0; i<tempData.length;i++){
+                        avgT +=tempData[i];
+                        if (tempData[i]>maxT){
+                            maxT = tempData[i];
+                        }
+                        if (tempData[i]<minT){
+                            minT = tempData[i];
+                        }
                     }
-                    if (tempData[i]<minT){
-                        minT = tempData[i];
-                    }
+                    avgT /= tempData.length;
+                    avgT.toFixed(2);
+                    setAvgTemp(avgT+"*C");
+                    setMaxTemp(maxT+"*C");
+                    setMinTemp(minT+"*C");
                 }
-                avgT /= tempData.length;
-                setAvgTemp(avgT+"*C");
-                setMaxTemp(maxT+"*C");
-                setMinTemp(minT+"*C");
-            }
-
-            if (humidData.length>0){
-                var minH = humidData[0];
-                var maxH = humidData[0];
-                var avgH = 0;
-                for (var i=0; i<humidData.length;i++){
-                    avgH +=humidData[i];
-                    if (humidData[i]>maxH){
-                        maxH = humidData[i];
+    
+                if (humidData.length>0){
+                    var minH = humidData[0];
+                    var maxH = humidData[0];
+                    var avgH = 0;
+                    for (var i=0; i<humidData.length;i++){
+                        avgH +=humidData[i];
+                        if (humidData[i]>maxH){
+                            maxH = humidData[i];
+                        }
+                        if (humidData[i]<minH){
+                            minH = humidData[i];
+                        }
                     }
-                    if (humidData[i]<minH){
-                        minH = humidData[i];
-                    }
+                    avgH /= humidData.length;
+                    avgH.toFixed(2);
+                    setAvgHumid(avgH+"*C");
+                    setMaxHumid(maxH+"*C");
+                    setMinHumid(minH+"*C");
                 }
-                avgH /= humidData.length;
-                setAvgHumid(avgH+"*C");
-                setMaxHumid(maxH+"*C");
-                setMinHumid(minH+"*C");
-            }
-
-            if (rainData.length>0){
-                var minR = rainData[0];
-                var maxR = rainData[0];
-                var avgR = 0;
-                for (var i=0; i<rainData.length;i++){
-                    avgR +=rainData[i];
-                    if (rainData[i]>maxR){
-                        maxH = rainData[i];
+    
+                if (rainData.length>0){
+                    var minR = rainData[0];
+                    var maxR = rainData[0];
+                    var avgR = 0;
+                    for (var i=0; i<rainData.length;i++){
+                        avgR +=rainData[i];
+                        if (rainData[i]>maxR){
+                            maxH = rainData[i];
+                        }
+                        if (rainData[i]<minR){
+                            minH = rainData[i];
+                        }
                     }
-                    if (rainData[i]<minR){
-                        minH = rainData[i];
-                    }
+                    avgR /= rainData.length;
+                    avgR.toFixed(2);
+                    setAvgRain(avgR+"*C");
+                    setMaxRain(maxR+"*C");
+                    setMinRain(minR+"*C");
                 }
-                avgR /= rainData.length;
-                setAvgRain(avgR+"*C");
-                setMaxRain(maxR+"*C");
-                setMinRain(minR+"*C");
+    
+                setIsLoading(false);
             }
-
-            setIsLoading(false);
         })
     }
     return (

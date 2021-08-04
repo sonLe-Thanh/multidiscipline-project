@@ -26,21 +26,44 @@ export default function ChangePasswordScreen({navigation}){
     }
 
     const validatePassword = () => {
-        console.log(global.uid);
+        // console.log(global.uid);
         fetch(`http://192.168.1.9:8000/api/users/${global.uid}/`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                'Accept': 'application/json, text/plain, */*', 
+                'Content-Type': 'application/json'
             },
             body:JSON.stringify({
+                name: global.name,
+                email: global.email,
+                phone_number: global.phone,
                 password: newPass0.value,
             })
         })
         .then((resp) => resp.json())
         .then(() => {
+            Alert.alert(
+                "Success!",
+                "Information changed!",
+                [
+                    {text: 'OK', onPress: () => {}}
+                ],
+                {cancelable: false}
+            );
+            return
             navigation.navigate('LoginScreen');
         })
-        .catch(error => { console.log("error", error) });
+        .catch(error => { 
+            Alert.alert(
+                "Failed!",
+                "Information did not change!",
+                [
+                    {text: 'OK', onPress: () => {}}
+                ],
+                {cancelable: false}
+            );
+            console.log("error", error) 
+        });
     }
 
     return (
