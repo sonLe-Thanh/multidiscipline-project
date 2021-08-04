@@ -214,6 +214,7 @@ import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { FlatList } from 'react-native-gesture-handler';
+import {BackendAddress} from '../constants/BackendAddress'
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -237,7 +238,7 @@ export default function App() {
   const responseListener = useRef();
 
   const fetchAllNotifi = () =>{
-    fetch("http://192.168.1.9:8000/api/notifications/?user="+global.uid,{
+    fetch(`${BackendAddress}/api/notifications/?user=`+global.uid,{
       metthod: "GET",
     })
     .then((response)=>response.json())

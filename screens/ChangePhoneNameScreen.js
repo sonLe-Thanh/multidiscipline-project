@@ -4,13 +4,14 @@ import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
+import {BackendAddress} from '../constants/BackendAddress'
 
 export default function ChangePhoneNameScreen({navigation}){
     const [name, setName] = useState({value: '', error: ''});
     const [phone, setPhone] = useState({value: '', error: ''});
 
     const changePhoneName = async (toChangeName, toChangePhone) => {
-        return await fetch("http://192.168.1.9:8000/api/users/"+global.uid+"/",{
+        return await fetch(`${BackendAddress}/api/users/`+global.uid+"/",{
                 method: "PUT",
                 headers: {
                     'Accept': 'application/json, text/plain, */*', 

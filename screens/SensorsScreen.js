@@ -4,10 +4,11 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, View, StyleSheet } from 'react-native';
 import * as Progress from 'react-native-progress';
+import {BackendAddress} from '../constants/BackendAddress'
 
 export default function SensorsScreen({ navigation }) {
     const apiHeader = "https://io.adafruit.com/api/v2/";
-    const [temparature, setTemparature] = useState(0);
+    const [temperature, setTemperature] = useState(0);
     const [humidity, setHumidity] = useState(0);
     const [rainLevel, setRainLevel] = useState("--mm");
 
@@ -27,7 +28,7 @@ export default function SensorsScreen({ navigation }) {
                 var receivedObj = JSON.parse(json.value)
                 if (receivedObj.name === "TEMP-HUMID") {
                     var receivedData = receivedObj.data.split('-');
-                    setTemparature(parseFloat(receivedData[0]));
+                    setTemperature(parseFloat(receivedData[0]));
                     setHumidity(parseFloat(receivedData[1]));
                 }
                 else if (receivedObj.name === "RAIN") {
@@ -55,7 +56,7 @@ export default function SensorsScreen({ navigation }) {
                 for (var i = 0; i < listInputDevice.length; i++) {
                     receivedDataFromFeed(listInputDevice[i].aio_key, listInputDevice[i].topic_name, "last")
                 }
-                // console.log(temparature)
+                // console.log(temperature)
                 // console.log(humidity)
                 // console.log(rainLevel)
                 setIsLoadingDevices(false);
@@ -81,17 +82,17 @@ export default function SensorsScreen({ navigation }) {
                     }}
                 >
                     <Text style={styles.text}>
-                        Temparature
+                        Temperature
                 </Text>
                     <View style={styles.circles}>
                         <Progress.Circle
                             color={'orange'}
-                            progress={temparature / 100}
+                            progress={temperature / 100}
                             size={200}
                             borderWidth={2}
                             thickness={10}
                             showsText={true}
-                            formatText={(progress) => `${temparature}` + '°C'}
+                            formatText={(progress) => `${temperature}` + '°C'}
                             style={styles.progress}
                         />
                     </View>

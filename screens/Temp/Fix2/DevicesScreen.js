@@ -8,6 +8,7 @@ import {Card} from 'react-native-elements'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View } from '../components/Themed';
 import { FlatList } from 'react-native-gesture-handler';
+import {BackendAddress} from '../constants/BackendAddress'
 
 export default function DevicesScreen({navigation}){
     const [devices, setDevices] = useState([
@@ -29,7 +30,7 @@ export default function DevicesScreen({navigation}){
     const [isLoading, setIsLoading] = useState(false);
     
     // useEffect(()=>{
-    //     fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid,{
+    //     fetch(`${BackendAddress}/api/devices/?user=`+global.uid,{
     //         method: "GET",
     //     }).then((response)=>response.json())
     //     .then((json)=>{

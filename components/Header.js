@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textShadowColor: "black",
         textShadowRadius: 16,
-        top: 100,
+        // 100 will produce overlapping elements
+        top: 10,
         position: 'absolute',
     },
 })

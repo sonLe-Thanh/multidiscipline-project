@@ -43,7 +43,7 @@ export default function HomeMainScreen({navigation}){
                 onPress = {() => {navigation.navigate("AddDevice")}}
             >
                 {/* <Text>Add device</Text> */}
-                <Image source={require("../assets/images/addDeviceBtn.png")}/>
+                <Image source={require("../assets/images/AddDeviceBtn.png")}/>
             </TouchableOpacity>
 
             <Text></Text>

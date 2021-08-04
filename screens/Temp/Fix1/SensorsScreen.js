@@ -3,11 +3,12 @@ import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, View  } from 'react-native';
+import {BackendAddress} from '../constants/BackendAddress'
 
 
 export default function SensorsScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
-    const [temparature, setTemparature] = useState('--°C');
+    const [temperature, setTemperature] = useState('--°C');
     const [humidity, setHumidity] = useState("--%");
     const [rainLevel, setRainLevel] = useState("--mm");
 
@@ -29,7 +30,7 @@ export default function SensorsScreen({navigation}){
             var receivedObj = JSON.parse(json.value)
             if (receivedObj.name === "TEMP-HUMID") {
                 var receivedData = receivedObj.data.split('-');
-                setTemparature(receivedData[0]+"°C");
+                setTemperature(receivedData[0]+"°C");
                 setHumidity(receivedData[1]+"%");
             }
             else if (receivedObj.name === "RAIN") {
@@ -42,7 +43,7 @@ export default function SensorsScreen({navigation}){
     };
 
     const getInputDevice = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
+        fetch(`${BackendAddress}/api/devices/?user=`+global.uid+"&type=I",{
             method: "GET"
         })
         .then((response)=>response.json())
@@ -73,7 +74,7 @@ export default function SensorsScreen({navigation}){
             :
             <View>
                 <Text>
-                    Current temparature: 30oC
+                    Current temperature: 30oC
                 </Text>
                 <Text>
                     Current humidity : 100%
