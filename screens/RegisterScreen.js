@@ -10,6 +10,7 @@ import {theme} from '../core/theme';
 import {emailValidator} from '../util/emailValidator';
 import {passwordValidator} from '../util/passwordValidator';
 import {nameValidator} from '../util/nameValidator';
+import {BackendAddress} from '../constants/BackendAddress'
 
 export default function RegisterScreen({navigation}){
     const [email, setEmail] = useState({value: '', error: ''});
@@ -29,7 +30,7 @@ export default function RegisterScreen({navigation}){
             return
         }
 
-        fetch("http://192.168.1.9:8000/api/users/", {
+        fetch(`${BackendAddress}/api/users/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

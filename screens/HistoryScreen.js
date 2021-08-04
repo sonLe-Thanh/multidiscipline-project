@@ -9,6 +9,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { LineChart } from 'react-native-chart-kit';
 import { max } from 'react-native-reanimated';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
+import {BackendAddress} from '../constants/BackendAddress'
 
 export default function HistoryScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
@@ -110,7 +111,7 @@ export default function HistoryScreen({navigation}){
         })
     }
     const getInputDevice = (_start_date, _end_date) =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
+        fetch(`${BackendAddress}/api/devices/?user=`+global.uid+`&type=I`,{
             method: "GET"
         })
         .then((response)=>response.json())

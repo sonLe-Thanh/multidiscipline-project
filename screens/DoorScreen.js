@@ -8,6 +8,7 @@ import { Alert, TouchableWithoutFeedback, Keyboard, Text, View  } from 'react-na
 // import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScrollView } from 'react-native';
+import {BackendAddress} from '../constants/BackendAddress'
 
 export default function DoorScreen({navigation}){
     const [listOutputDevice, setListOutputDevice] = useState([]);
@@ -45,7 +46,7 @@ export default function DoorScreen({navigation}){
     };
 
     const getOutputDevice = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=O",{
+        fetch(`${BackendAddress}/api/devices/?user=`+global.uid+`&type=O`,{
             method: "GET"
         })
         .then((response)=>response.json())
