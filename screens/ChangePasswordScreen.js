@@ -1,16 +1,11 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
-import {Text} from 'react-native-paper';
+import {StyleSheet, Alert} from 'react-native';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 
 import {theme} from '../core/theme';
-import {emailValidator} from '../util/emailValidator';
-import {passwordValidator} from '../util/passwordValidator';
-import {nameValidator} from '../util/nameValidator';
-import {getUid, LoginScreen} from './LoginScreen';
 
 export default function ChangePasswordScreen({navigation}){
     const [currPass, setCurrPass] = useState({value: '', error: ''});
@@ -26,8 +21,7 @@ export default function ChangePasswordScreen({navigation}){
     }
 
     const validatePassword = () => {
-        // console.log(global.uid);
-        fetch(`http://192.168.1.9:8000/api/users/${global.uid}/`, {
+        fetch(`http://192.168.1.2:8000/api/users/${global.uid}/`, {
             method: "POST",
             headers: {
                 'Accept': 'application/json, text/plain, */*', 

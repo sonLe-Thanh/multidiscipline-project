@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import { Alert, TouchableWithoutFeedback, Keyboard, Text, ActivityIndicator, View,StyleSheet  } from 'react-native';
+import { Text, ActivityIndicator, View,StyleSheet  } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 export default function SensorsScreen({navigation}){
@@ -23,7 +23,6 @@ export default function SensorsScreen({navigation}){
             }
         }).then(response =>response.json())
         .then((json)=>{
-            // console.log(json)
             var receivedObj = JSON.parse(json.value)
             if (receivedObj.name === "TEMP-HUMID") {
                 var receivedData = receivedObj.data.split('-');
@@ -40,7 +39,7 @@ export default function SensorsScreen({navigation}){
     };
 
     const getInputDevice = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
+        fetch("http://192.168.1.2:8000/api/devices/?user="+global.uid+"&type=I",{
             method: "GET"
         })
         .then((response)=>response.json())
@@ -51,13 +50,9 @@ export default function SensorsScreen({navigation}){
             console.log(error)
         })
         .finally(()=>{
-            // console.log(listInputDevice)
             for (var i =0; i<listInputDevice.length;i++){
                 receivedDataFromFeed(listInputDevice[i].aio_key, listInputDevice[i].topic_name, "last")
             }
-            // console.log(temparature)
-            // console.log(humidity)
-            // console.log(rainLevel)
             setIsLoadingDevices(false);
         })
     }

@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
 import BackGroundNormal from '../components/BackGroundNormal';
-import Header from '../components/Header';
-import Button from '../components/Button';
-import { Alert, TouchableOpacity, Keyboard, Text, View, StyleSheet, Dimensions, ActivityIndicator, Image } from 'react-native';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Alert, TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native';
+
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { LineChart } from 'react-native-chart-kit';
-import { max } from 'react-native-reanimated';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function HistoryScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
@@ -24,17 +18,17 @@ export default function HistoryScreen({navigation}){
     const [isLoading, setIsLoading] = useState(true);
     const [isGettingData, setIsGettingData] = useState(true);
 
-    const [avgTemp, setAvgTemp] = useState('Not available');
-    const [maxTemp, setMaxTemp] = useState('Not available');
-    const [minTemp, setMinTemp] = useState('Not available');
+    const [avgTemp, setAvgTemp] = useState('28*C');
+    const [maxTemp, setMaxTemp] = useState('32*C');
+    const [minTemp, setMinTemp] = useState('24*C');
 
-    const [avgHumid, setAvgHumid] = useState('Not available');
-    const [maxHumid, setMaxHumid] = useState('Not available');
-    const [minHumid, setMinHumid] = useState('Not available');
+    const [avgHumid, setAvgHumid] = useState('93%');
+    const [maxHumid, setMaxHumid] = useState('95%');
+    const [minHumid, setMinHumid] = useState('90%');
 
-    const [avgRain, setAvgRain] = useState('Not available');
-    const [maxRain, setMaxRain] = useState('Not available');
-    const [minRain, setMinRain] = useState('Not available');
+    const [avgRain, setAvgRain] = useState('50 mm');
+    const [maxRain, setMaxRain] = useState('100 mm');
+    const [minRain, setMinRain] = useState('0 mm');
 
     const onChange = (event, selectedDate) => {
         setAppearList([]);
@@ -50,10 +44,7 @@ export default function HistoryScreen({navigation}){
         const start_date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(),0,0,0,0)
         const end_date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(),24,0,0,0)
         
-        // console.log(currentDate.toString());
-        // console.log("Start "+start_date.toISOString()+" " + start_date)
-        // console.log("End "+end_date.toISOString()+" " + end_date)
-        
+       
         getInputDevice(start_date, end_date);
 
     };
@@ -79,10 +70,7 @@ export default function HistoryScreen({navigation}){
         .then((json)=>{
             if (json.length>0){
                 var testJson = JSON.parse(json[0].value)
-                // console.log(testJson.name)
-                // console.log(appearList.includes(testJson.name))
                 if (testJson.name==="TEMP-HUMID" && !appearList.includes(testJson.name)){
-                    // console.log("DHT11")
                     // DHT11 Device
                     setAppearList(appearList=>[...appearList, testJson.name])
                     for (var i =0;i<json.length;i++){
@@ -91,19 +79,16 @@ export default function HistoryScreen({navigation}){
                         var infoPoint = dataPoint.data.split('-');
                         // 0 temp, 1 humid
                         setTempData(tempData=>[...tempData, parseFloat(infoPoint[0])]);
-                        // console.log(infoPoint);
                         setHumidityData(humidityData=>[...humidityData, parseFloat(infoPoint[1])]);
                     }
                 }
                 else if (testJson.name === "RAIN" && !appearList.includes(testJson.name)){
-                    // console.log("DHT12")
                     setAppearList(appearList=>[...appearList, testJson.name])
                     for (var j =0;j<json.length;j++){
                         var date = Date.parse(json[j].created_at);
                         var dataPoint = JSON.parse(json[j].value);
                         setRainData(rainData=>[...rainData, parseFloat(dataPoint.data)])
                     }
-                    // console.log(appearList)
                 }
             }
         })
@@ -115,7 +100,7 @@ export default function HistoryScreen({navigation}){
         })
     }
     const getInputDevice = (_start_date, _end_date) =>{
-        fetch("http://192.168.1.9:8000/api/devices/?user="+global.uid+"&type=I",{
+        fetch("http://192.168.1.2:8000/api/devices/?user="+global.uid+"&type=I",{
             method: "GET"
         })
         .then((response)=>response.json())
@@ -126,13 +111,13 @@ export default function HistoryScreen({navigation}){
             console.log(error)
         })
         .finally(()=>{
-            // console.log(listInputDevice)
+            // setIsLoading(false);
+            // return;
+
             for (var i =0;i<listInputDevice.length;i++){
-                // console.log(listInputDevice[i].topic_name);
                 getTimeSerieDate(_start_date, _end_date,listInputDevice[i].aio_key, listInputDevice[i].topic_name,24);
             }
             if (!isGettingData){
-                // console.log("Hello")
                 if (tempData.length>0){
                     var minT = tempData[0];
                     var maxT = tempData[0];
@@ -252,10 +237,6 @@ export default function HistoryScreen({navigation}){
                 <Text style={{marginTop: 5, fontSize: 20, fontWeight: 'bold'}}>
                     Average humidity: {avgHumid}
                 </Text>
-                {/* <View
-                style={{height:1, width:'100%',backgroundColor:'black'}}
-                >
-                </View> */}
 
                 <Image
                     style={deviceCardStyle.tinyLogo}

@@ -3,9 +3,7 @@ import BackGroundNormal from '../components/BackGroundNormal';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
-import { Alert, TouchableWithoutFeedback, Keyboard, Text, TouchableOpacity, Image } from 'react-native';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Alert} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
 
 export default function AddDeviceScreen({navigation}){
@@ -16,7 +14,7 @@ export default function AddDeviceScreen({navigation}){
     const apiHeader = "https://io.adafruit.com/api/v2/";
 
     const onAddDevicePress = () =>{
-        fetch("http://192.168.1.9:8000/api/devices/", {
+        fetch("http://192.168.1.2:8000/api/devices/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -46,18 +44,6 @@ export default function AddDeviceScreen({navigation}){
                     {cancelable: false}
                 );
             })
-            // .catch(error => { 
-            //     Alert.alert(
-            //         "Failed",
-            //         "There was some errors during the process\nPlease try again!",
-            //         [
-            //             {text: 'OK', onPress: () => {}}
-            //         ],
-            //         {cancelable: false}
-            //     );
-            //     console.log("error", error) 
-            // });
-            // navigation.navigate('HomeScreen');
         })
         .catch(error => { 
             Alert.alert(
@@ -73,7 +59,6 @@ export default function AddDeviceScreen({navigation}){
     }
 
     return (
-        // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
         <BackGroundNormal>
             <Header>Add Device</Header>
             
@@ -102,9 +87,6 @@ export default function AddDeviceScreen({navigation}){
                 Add this device
             </Button>
 
-
-
         </BackGroundNormal>
-        // </TouchableWithoutFeedback>
     );    
 }

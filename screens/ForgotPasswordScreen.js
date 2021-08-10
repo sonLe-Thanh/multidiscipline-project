@@ -8,8 +8,6 @@ import TextInput from '../components/TextInput';
 
 import {theme} from '../core/theme';
 import {emailValidator} from '../util/emailValidator';
-import {passwordValidator} from '../util/passwordValidator';
-import {nameValidator} from '../util/nameValidator';
 
 export default function ForgotPasswordScreen({navigation}){
     const [email, setEmail] = useState({value: '', error: ''});
@@ -21,7 +19,6 @@ export default function ForgotPasswordScreen({navigation}){
         const emailError = emailValidator(email.value);
         if (emailError) {
             setEmail({...email, error:emailError});
-            //Send data to backend here
             return;
         }
         navigation.navigate('LoginScreen');
@@ -29,14 +26,6 @@ export default function ForgotPasswordScreen({navigation}){
     return (
         <BackGroundNormal>
             <Header>Retrieve Password</Header>
-            {/* <TextInput
-                label="Name"
-                returnKeyType="next"
-                value= {name.value}
-                onChangeText={(text) => setName({ value: text, error: '' })}
-                error={!!name.error}
-                errorText={name.error}
-            /> */}
 
             <TextInput
                 label="Email"

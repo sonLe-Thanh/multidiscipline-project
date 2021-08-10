@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
 import {Text} from 'react-native-paper';
 import BackGroundNormal from '../components/BackGroundNormal';
@@ -29,7 +29,7 @@ export default function RegisterScreen({navigation}){
             return
         }
 
-        fetch("http://192.168.1.9:8000/api/users/", {
+        fetch("http://192.168.1.2:8000/api/users/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, Platform, ActivityIndicator, Image, StyleSheet } from 'react-native';
@@ -16,7 +15,7 @@ export default function App() {
   const responseListener = useRef();
 
   const fetchAllNotifi = () =>{
-    fetch("http://192.168.1.9:8000/api/notifications/?user="+global.uid,{
+    fetch("http://192.168.1.2:8000/api/notifications/?user="+global.uid,{
       metthod: "GET",
     })
     .then((response)=>response.json())

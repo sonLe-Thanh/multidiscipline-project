@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
+import React, {useState} from 'react';
+import {TouchableOpacity, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import BackGroundMain from '../components/BackGroundMain';
 import Header from '../components/Header';
@@ -16,13 +16,10 @@ export default function LoginScreen({navigation}){
     const [password, setPassword] = useState({value: '', error: ''});
     
     const login = async (input_email, input_password) =>{
-        // navigation.navigate('HomeScreen');
-        // return;
-
-        return await fetch("http://192.168.1.9:8000/api/auth/login/",{
+    
+        return await fetch("http://192.168.1.2:8000/api/auth/login/",{
             method: "POST",
             headers: {
-                // 'Accept': 'application/json, text/plain, */*', 
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -31,7 +28,6 @@ export default function LoginScreen({navigation}){
             })
         }).then((response) => response.json())
         .then((json)=>{
-            // console.log(json);
             global.uid = json.id;
             if (typeof global.uid === 'undefined'){
                 setEmail({...email, error:"Invaild email or password"});
@@ -92,7 +88,6 @@ export default function LoginScreen({navigation}){
 
             <View style={styles.forgotPassword}>
                 <TouchableOpacity
-                    // Should navigate to reset password page here
                     onPress={()=>navigation.replace('ForgotPasswordScreen')}
                 >
                     <Text style={styles.forgot} >Forgot password?</Text>
